@@ -8,11 +8,22 @@ from model import connect_to_db, db
 from server import app
 
 
-emotions_tags=["angry", "stressed", "confused", "happy", "peaceful", "surprised", "worried", "guilty", "sad"]
+emotions_tags = ["angry", "stressed", "confused", "happy", "peaceful",
+               "surprised", "worried", "guilty", "sad"]
 characters_tags=["friend", "significant_other", "animal", "parent", "child", "celebrity", "relative", "stranger", "ex", "non_human"]
 themes_tags=["fun", "dramatic", "violent", "sexuality", "relationships", "nightmare", "spiritual", "friendly", "action", "loss"]
 settings_tags=["outdoor", "indoor", "school", "home", "work", "automobile", "familiar", "unfamiliar"]
 intensity_tags=[ 1, 2, 3, 4, 5]
+
+
+
+
+# hannah = User()
+# entry = Entry(title="hi")
+
+# hannah.entries.append(entry)
+entry.emotions.append(Emotion.query.get("glty"))
+
 
 
 def load_emotions():
@@ -101,7 +112,7 @@ if __name__ == "__main__":
     load_themes()
     load_settings()
     load_intensity()
-
+#hannah = User(email="email@email.com", username = "hhchong", password = "pass", fname="hannah",lname="chong",gender="female",age=22)
 
 
 

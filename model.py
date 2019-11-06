@@ -20,10 +20,12 @@ class User(db.Model):
     email = db.Column(db.String(100))
     username = db.Column(db.String(20))
     password = db.Column(db.String(64))
-    fname = db.Column(db.String(100))
-    lname = db.Column(db.String(100))
-    gender = db.Column(db.String(20))
-    age = db.Column(db.Integer)
+    fname = db.Column(db.String)
+    lname = db.Column(db.String)
+    gender = db.Column(db.String(20), nullable=True)
+    age = db.Column(db.Integer, nullable=True)
+
+    entries = db.relationship("Entry", backref="user")
 
     def __repr__(self):
         """ Provide helpful representation when printed."""
@@ -37,50 +39,37 @@ class Entry(db.Model):
     __tablename__ = "entries"
 
     entry_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, 
-                                db.ForeignKey('users.user_id'))
+    
     date = db.Column(db.DateTime)
-    text_content = db.Column(db.String(5000))
+    text_content = db.Column(db.Text)
     title = db.Column(db.String(80))
+
     hours_slept = db.Column(db.Integer)
-    mood_awake_id = db.Column(db.Integer, db.ForeignKey('intensity.intensity_id'))
-    mood_sleep_id = db.Column(db.Integer, db.ForeignKey('intensity.intensity_id'))
-    lucidity_id = db.Column(db.Integer, db.ForeignKey('intensity.intensity_id'))
-    lucid_intent_id = db.Column(db.Integer, db.ForeignKey('intensity.intensity_id'))
+
+    mood_awake_intensity = db.Column(db.Integer)
+    mood_sleep_intensity = db.Column(db.Integer)
+
+    lucidity_intensity = db.Column(db.Integer)
+    lucid_intent_intensity = db.Column(db.Integer)
+
+    user_id = db.Column(db.Integer, 
+                        db.ForeignKey('users.user_id'))
+
+    
 
     #relationship to tags w manytomany association tables
     emotions = db.relationship("Emotion",
                                 secondary="entries_emotions",
                                 backref="entries")
     characters = db.relationship("Character",
-                                secondary="entries_characters",
-                                backref="entries")
+                                 secondary="entries_characters",
+                                 backref="entries")
     themes = db.relationship("Theme",
-                                secondary="entries_themes",
-                                backref="entries")
-
+                             secondary="entries_themes",
+                             backref="entries")
     settings = db.relationship("Setting",
-                                secondary="entries_settings",
-                                backref="entries")
-
-    # lucid = db.relationship("Lucid",
-    #                             secondary="entries_lucid",
-    #                             backref="entries")
-
-    # moods = db.relationship("Mood",
-    #                             secondary="entries_moods",
-    #                             backref="entries")
-
-    #Define relationship to user
-    user = db.relationship("User")
-
-    #Define relationship to intensity
-    mood_awake = db.relationship("Intensity", foreign_keys=[mood_awake_id])
-    mood_sleep = db.relationship("Intensity", foreign_keys=[mood_sleep_id])
-    lucidity = db.relationship("Intensity", foreign_keys=[lucidity_id])
-    lucid_intent = db.relationship("Intensity", foreign_keys=[lucid_intent_id])
-
-
+                               secondary="entries_settings",
+                               backref="entries")
 
     def __repr__(self):
 
@@ -92,8 +81,12 @@ class Emotion(db.Model):
 
     __tablename__ = "emotions"
 
-    emotion_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    emotion_code = db.Column(db.Integer, autoincrement=True, primary_key=True)
     emotion = db.Column(db.String(64))
+
+    # @classmethod
+    # def get_emotion(cls, emotion_name):
+    #     return cls.query.filter_by(emotion=emotion_name).first()
 
     def __repr__(self):
         """Provide helpful representation when printed."""
@@ -101,7 +94,7 @@ class Emotion(db.Model):
         return f"<Emotion emotion_id={self.emotion_id} emotion={self.emotion}>"
 
 
-class entryEmotion(db.Model):
+class EntryEmotion(db.Model):
     """many-to-many association table for emotions and entries"""
 
     __tablename__ = 'entries_emotions'
@@ -197,78 +190,8 @@ class entrySetting(db.Model):
         return f"<Entries Setting ent_set_id={self.ent_set_id} entry_id={self.entry_id} setting_id={self.setting_id}>"
 
 
-class Intensity(db.Model):
-    """intensity of moods and lucid FK in entries tables"""
 
-    __tablename__ = "intensity"
-
-    intensity_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    intensity = db.Column(db.Integer)
-
-    def __repr__(self):
-
-        return f"<Intensity intensity_id={self.intensity_id} intensity={self.intensity}>"
-
-
-
-
-
-    # class Lucid(db.Model):
-#     """Lucid states of entry"""
-
-#     __tablename__ = "lucid"
-
-#     lucid_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     lucid_state = db.Column(db.Integer)
-#     lucid_intent = db.Column(db.Integer)
-
-#     def __repr__(self):
-
-#         return f"<Lucid lucid_id={self.lucid_id} lucidity={self.lucid_state} lucid_intent={self.lucid_intent}>"
-
-
-# class entryLucid(db.Model):
-#     """many-to-many association table for lucid states and entries"""
-
-#     __tablename__ = "entries_lucid"
-
-#     ent_lucid_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     entry_id = db.Column(db.Integer, db.ForeignKey('entries.entry_id'))
-#     lucid_id = db.Column(db.Integer, db.ForeignKey('lucid.lucid_id'))
-
-#     def __repr__(self):
-
-#         return f"<Entries Lucid ent_lucid_id={self.ent_lucid_id} entry_id={self.entry_id} lucid_id={self.lucid_id}>"
-
-
-# class Mood(db.Model):
-#     """Overall moods of entry awake/asleep"""
-
-#     __tablename__ = "moods"
-
-#     mood_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     mood_awake = db.Column(db.Integer)
-#     mood_asleep = db.Column(db.Integer)
-
-#     def __repr__(self):
-
-#         return f"<Mood mood_id={self.mood_id} mood_awake={self.mood_awake} mood_asleep={self.mood_asleep}>"
-
-
-# class entryMood(db.Model):
-#     """many-to-many association table for moods and entries"""
-
-#     __tablename__ = "entries_moods"
-
-#     ent_mood_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     entry_id = db.Column(db.Integer, db.ForeignKey('entries.entry_id'))
-#     mood_id = db.Column(db.Integer, db.ForeignKey('moods.mood_id'))
-
-#     def __repr__(self):
-
-#         return f"<Entries Moods ent_mood_id={self.ent_mood_id} entry_id={self.entry_id} mood_id={self.mood_id}>"
-
-#####################################################################
+#################################
 
 def connect_to_db(app):
     """Connect the database to our Flask app."""
