@@ -80,24 +80,26 @@ def login_form():
     username = request.args.get("username")
     password = request.args.get("password")
     return render_template("login_form.html",
-                            email=email,
+                            username=username,
                             password=password)
 
 @app.route("/login", methods=['POST'])
 def handle_login():
 
-    email = request.form['email']
+    username = request.form['username']
     password = request.form['password']
 
-    q = User.query.filter(User.email == email, User.password == password).first()
+    q = User.query.filter(User.username == username, User.password == password).first()
 
 
     if q:
-        
         session['curent user_id'] = q.user_id
         flash("Logged in")
     
-    return redirect("/")
+    return redirect("/journal")
+
+"""entries here"""
+# @app.route("/journal")
 
 
 
@@ -109,6 +111,7 @@ def handle_login():
 
 
 if __name__ == "__main__":
+
     # We have to set debug=True here, since it has to be True at the
     # point that we invoke the DebugToolbarExtension
     app.debug = True

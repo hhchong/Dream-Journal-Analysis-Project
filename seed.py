@@ -137,6 +137,7 @@ def load_settings():
 
 
 if __name__ == "__main__":
+
     connect_to_db(app)
 
     db.create_all()
@@ -148,8 +149,6 @@ if __name__ == "__main__":
     load_characters()
     load_themes()
     load_settings()
-    # load_intensity()
-#hannah = User(email="email@email.com", username = "hhchong", password = "pass", fname="hannah",lname="chong",gender="female",age=22)
 
 
 
