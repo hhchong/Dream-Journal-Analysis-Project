@@ -3,7 +3,7 @@ from jinja2 import StrictUndefined
 from flask import (Flask, render_template, redirect, request, flash,
                    session)
 
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Entry, Emotion, EntryEmotion, Character, EntryCharacter, Theme, EntryTheme, Setting, EntrySetting, connect_to_db, db
 
@@ -52,9 +52,11 @@ def registration_process():
     fname = request.form["fname"]
     lname = request.form["lname"]
     gender = request.form["gender"]
+    age = request.form["age"]
 
     if User.query.filter(User.email == email).first():
         #checks if user is already registered by checking if email in database
+        flash("you have an account already")
         return redirect("/")
         #or to login page?
 
@@ -69,6 +71,8 @@ def registration_process():
                     age=age)
         db.session.add(user)
         db.session.commit()
+        flash("successfully registered")
+
 
     return redirect("/")
 
@@ -93,13 +97,81 @@ def handle_login():
 
 
     if q:
-        session['curent user_id'] = q.user_id
+        session['current_user_id'] = q.user_id
         flash("Logged in")
+        #work on flash
+        return redirect("/journal")
+
+    else:
+        flash("Log in Failed")
+        return redirect("/")
+
+"""log out of website"""
+@app.route('/logout')
+def logout():
+    session.pop('current_user_id', None)
+    flash("you were logged out")
+    return redirect('/')
+
+"""journal page w entries """
+@app.route("/journal", methods=['GET'])
+def show_journal():
+
+    return render_template("journal.html")
+
+
+"""showing and processing entry form"""
+@app.route("/entryform", methods=['GET'])
+def show_entryform():
+
+    date = request.args.get("date")
+    text_content = request.args.get("text_content")
+    title = request.args.get("title")
+    hours_slept = request.args.get("hours_slept")
+    mood_awake = request.args.get("mood_awake")
+    mood_sleep = request.args.get("mood_sleep")
+    lucidity = request.args.get("lucidity")
+    lucid_intent = request.args.get("lucid_intent")
+
+    return render_template("entryform.html",
+                            date=date,
+                            text_content=text_content,
+                            title=title,
+                            hours_slept=hours_slept,
+                            mood_awake=mood_awake,
+                            mood_sleep=mood_sleep,
+                            lucidity=lucidity,
+                            lucid_intent=lucid_intent)
+
+@app.route("/entryform", methods=['POST'])
+def process_entryform():
+
+    date = request.form["date"]
+    text_content = request.form["text_content"]
+    title = request.form["title"]
+    hours_slept = request.form["hours_slept"]
+    mood_awake = request.form["mood_awake"]
+    mood_sleep = request.form["mood_sleep"]
+    lucidity = request.form["lucidity"]
+    lucid_intent = request.form["lucid_intent"]
+    user_id = session['current_user_id']
+
+    entry = Entry(user_id=user_id,
+                  date=date,
+                  text_content=text_content,
+                  title=title,
+                  hours_slept=hours_slept,
+                  mood_awake=mood_awake,
+                  mood_sleep=mood_sleep,
+                  lucidity=lucidity,
+                  lucid_intent=lucid_intent)
     
+    db.session.add(entry)
+    db.session.commit()
+    flash("successfully saved entry")
+
     return redirect("/journal")
 
-"""entries here"""
-# @app.route("/journal")
 
 
 
@@ -121,7 +193,7 @@ if __name__ == "__main__":
     connect_to_db(app)
 
     # Use the DebugToolbar
-    DebugToolbarExtension(app)
+    # DebugToolbarExtension(app)
 
     app.run(port=5000, host='0.0.0.0')
 
