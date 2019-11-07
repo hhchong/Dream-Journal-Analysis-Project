@@ -1,7 +1,7 @@
 """File to seed tags for categories in entries."""
 
 from sqlalchemy import func
-from model import Emotion, Character, Theme, Setting, Intensity
+from model import User, Entry, Emotion, Character, Theme, Setting
 """from model import the different tag categories"""
 
 from model import connect_to_db, db
@@ -22,8 +22,42 @@ intensity_tags=[ 1, 2, 3, 4, 5]
 # entry = Entry(title="hi")
 
 # hannah.entries.append(entry)
-entry.emotions.append(Emotion.query.get("glty"))
+# entry.emotions.append(Emotion.get_emotion("guilty"))
+def load_testuser():
+    """load test user into database"""
+    print("Test User")
 
+    User.query.delete()
+
+    test_user = User(email="email@email.com", username = "hhchong", 
+                     password = "pass", fname="hannah",lname="chong",
+                     gender="female",age=22)
+
+    db.session.add(test_user)
+
+    db.session.commit()
+
+def load_testentries():
+    """load test entries into database."""
+    print("test entries")
+
+    Entry.query.delete()
+
+    test_entry1 = Entry(user_id=1, date="31-Oct-2015", 
+                        text_content="this is my test dream entry", 
+                        title="title", hours_slept=8, 
+                        mood_awake=1, mood_sleep=1, 
+                        lucidity=1, lucid_intent=1)
+
+    test_entry2 = Entry(user_id=1, date="1-Nov-2015", 
+                        text_content="this is my second test dream entry", 
+                        title="title", hours_slept=8, 
+                        mood_awake=1, mood_sleep=1, 
+                        lucidity=1, lucid_intent=1)
+    db.session.add(test_entry1)
+    db.session.add(test_entry2)
+
+    db.session.commit()
 
 
 def load_emotions():
@@ -87,19 +121,19 @@ def load_settings():
     db.session.commit()
     
 
-def load_intensity():
-    """load intensity into database."""
-    print("Intensity")
+# def load_intensity():
+#     """load intensity into database."""
+#     print("Intensity")
 
-    Intensity.query.delete()
+#     Intensity.query.delete()
 
-    for level in intensity_tags:
-        intensity_index = intensity_tags.index(level) + 1
-        add_intensity = Intensity(intensity_id=intensity_index, intensity=level)
+#     for level in intensity_tags:
+#         intensity_index = intensity_tags.index(level) + 1
+#         add_intensity = Intensity(intensity_id=intensity_index, intensity=level)
 
-        db.session.add(add_intensity)
+#         db.session.add(add_intensity)
 
-    db.session.commit()
+#     db.session.commit()
 
 
 if __name__ == "__main__":
@@ -107,11 +141,14 @@ if __name__ == "__main__":
 
     db.create_all()
 
+
+    load_testuser()
+    load_testentries()
     load_emotions()
     load_characters()
     load_themes()
     load_settings()
-    load_intensity()
+    # load_intensity()
 #hannah = User(email="email@email.com", username = "hhchong", password = "pass", fname="hannah",lname="chong",gender="female",age=22)
 
 

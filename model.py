@@ -46,11 +46,11 @@ class Entry(db.Model):
 
     hours_slept = db.Column(db.Integer)
 
-    mood_awake_intensity = db.Column(db.Integer)
-    mood_sleep_intensity = db.Column(db.Integer)
+    mood_awake = db.Column(db.Integer)
+    mood_sleep = db.Column(db.Integer)
 
-    lucidity_intensity = db.Column(db.Integer)
-    lucid_intent_intensity = db.Column(db.Integer)
+    lucidity = db.Column(db.Integer)
+    lucid_intent = db.Column(db.Integer)
 
     user_id = db.Column(db.Integer, 
                         db.ForeignKey('users.user_id'))
@@ -81,7 +81,7 @@ class Emotion(db.Model):
 
     __tablename__ = "emotions"
 
-    emotion_code = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    emotion_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     emotion = db.Column(db.String(64))
 
     # @classmethod
@@ -123,7 +123,7 @@ class Character(db.Model):
         return f"<Character character_id={self.character_id} character={self.character}>"
 
 
-class entryCharacter(db.Model):
+class EntryCharacter(db.Model):
     """many-to-many association table for characters and entries"""
 
     __tablename__ = 'entries_characters'
@@ -149,7 +149,7 @@ class Theme(db.Model):
 
         return f"<Theme theme_id={self.theme_id} theme={self.theme}>"
 
-class entryTheme(db.Model):
+class EntryTheme(db.Model):
     """many-to-many association table for characters and entries"""
 
     __tablename__ = "entries_themes"
@@ -176,7 +176,7 @@ class Setting(db.Model):
         return f"<Setting setting_id={self.setting_id} setting={self.setting}>"
 
 
-class entrySetting(db.Model):
+class EntrySetting(db.Model):
     """many-to-many association table for settings and entries"""
 
     __tablename__ = "entries_settings"
