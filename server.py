@@ -114,34 +114,41 @@ def logout():
     return redirect('/')
 
 """journal page w entries """
-@app.route("/journal", methods=['GET'])
+@app.route("/journal")
 def show_journal():
 
-    return render_template("journal.html")
+    if 'current_user_id' not in session:
+        return redirect("/login")
+    else:
+        return render_template("journal.html")
 
 
 """showing and processing entry form"""
 @app.route("/entryform", methods=['GET'])
 def show_entryform():
 
-    date = request.args.get("date")
-    text_content = request.args.get("text_content")
-    title = request.args.get("title")
-    hours_slept = request.args.get("hours_slept")
-    mood_awake = request.args.get("mood_awake")
-    mood_sleep = request.args.get("mood_sleep")
-    lucidity = request.args.get("lucidity")
-    lucid_intent = request.args.get("lucid_intent")
+    if 'current_user_id' not in session:
+        return redirect("/login")
 
-    return render_template("entryform.html",
-                            date=date,
-                            text_content=text_content,
-                            title=title,
-                            hours_slept=hours_slept,
-                            mood_awake=mood_awake,
-                            mood_sleep=mood_sleep,
-                            lucidity=lucidity,
-                            lucid_intent=lucid_intent)
+    else:
+        date = request.args.get("date")
+        text_content = request.args.get("text_content")
+        title = request.args.get("title")
+        hours_slept = request.args.get("hours_slept")
+        mood_awake = request.args.get("mood_awake")
+        mood_sleep = request.args.get("mood_sleep")
+        lucidity = request.args.get("lucidity")
+        lucid_intent = request.args.get("lucid_intent")
+
+        return render_template("entryform.html",
+                                date=date,
+                                text_content=text_content,
+                                title=title,
+                                hours_slept=hours_slept,
+                                mood_awake=mood_awake,
+                                mood_sleep=mood_sleep,
+                                lucidity=lucidity,
+                                lucid_intent=lucid_intent)
 
 @app.route("/entryform", methods=['POST'])
 def process_entryform():
