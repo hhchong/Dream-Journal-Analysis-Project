@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<h1> entries</h1>
+{% for entry in entry_posts %}
+{{ entry }}
+{% endfor %}
+
+<h2><a href="/entryform">Add entry to database!</a></h2>
+
+<h2><a href="/logout">Logout</a></h2>
+
+
+
+
+{% endblock %}

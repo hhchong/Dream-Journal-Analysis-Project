@@ -1,23 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <ul class=flashes>
-    {% for message in messages %}
-      <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+{% for entry in entries %}
+<p> {{ entry.title }} </p>
+<p> {{ entry.date }}
 
-<h1> Journal page..will eventually show all entries</h1>
-
-<h2><a href="/entryform">Add entry to database!</a></h2>
-
-<h2><a href="/logout">Logout</a></h2>
-
-
+{% endfor %}
 
 
 {% endblock %}

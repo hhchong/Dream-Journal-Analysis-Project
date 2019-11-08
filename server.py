@@ -15,6 +15,7 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
+#flask login
 
 @app.route('/')
 def index():
@@ -113,17 +114,36 @@ def logout():
     flash("you were logged out")
     return redirect('/')
 
-"""journal page w entries """
-@app.route("/journal")
+"""index page, shows past week of posts (title, date, ratings), (drafts), and calendar, (eventually other peoples dreams"""
+@app.route('/index')
+def show_index():
+    return render_template("/index.html")
+
+
+
+"""journal page w all entries (with every detail).. profile style, eventually infinite scroll"""
+@app.route("/journal", methods=['GET'])
 def show_journal():
 
-    if 'current_user_id' not in session:
-        return redirect("/login")
-    else:
-        return render_template("journal.html")
+    logged_user = session['current_user_id']
+    
 
 
-"""showing and processing entry form"""
+    entries = Entry.query.filter(Entry.user_id == logged_user).all()
+
+
+    # get session object of user with user user_id
+  
+
+    # then relationship it with entries like User.entries
+
+    # then loop over entries in journal.html with jinja to show all entries! 
+     
+    return render_template("journal.html",
+                            entries=entries)
+
+
+
 @app.route("/entryform", methods=['GET'])
 def show_entryform():
 
@@ -177,7 +197,26 @@ def process_entryform():
     db.session.commit()
     flash("successfully saved entry")
 
+    #create its own entry details page
     return redirect("/journal")
+
+"""edit entry"""
+
+
+# @app.route('/entry_details/<entry_id>', method=['POST'])
+# def show_entry_details(entry_id):
+#     """show individual entry"""
+
+#     session['entry_id'] = entry_id
+#     Entry.get('entry_id') = entry
+
+#     return render_template("entry_details.html",
+#                             entry_id=entry_id,
+#                             entry=entry)
+
+
+
+
 
 
 

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>entry detail for {{ session['entry_id'] }} </h1>
+    {% for detail in entry %}
+        <div class='entry-div'>
+
+            <h2> {{ entry[detail].title }}<h3>
+
+
+    {% endfor %}
+
+{% endblock %}
