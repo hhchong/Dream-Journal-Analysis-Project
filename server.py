@@ -198,21 +198,22 @@ def process_entryform():
     flash("successfully saved entry")
 
     #create its own entry details page
-    return redirect("/journal")
+    return redirect("/entry_details/<entry_id>")
+
 
 """edit entry"""
 
 
-# @app.route('/entry_details/<entry_id>', method=['POST'])
-# def show_entry_details(entry_id):
-#     """show individual entry"""
+@app.route('/entry_details/<entry_id>', methods=['GET'])
+def show_entry_details(entry_id):
+    """show individual entry"""
 
-#     session['entry_id'] = entry_id
-#     Entry.get('entry_id') = entry
+   
+    entry = Entry.query.filter(Entry.entry_id == entry_id).first()
 
-#     return render_template("entry_details.html",
-#                             entry_id=entry_id,
-#                             entry=entry)
+    return render_template("entry_details.html",
+                            entry_id=entry_id,
+                            entry=entry)
 
 
 

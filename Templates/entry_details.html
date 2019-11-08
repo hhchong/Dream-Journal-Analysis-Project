@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>entry detail for {{ session['entry_id'] }} </h1>
-    {% for detail in entry %}
+<h1>entry detail for {{ entry_id }} </h1>
         <div class='entry-div'>
 
-            <h2> {{ entry[detail].title }}<h3>
+            <h2> {{ entry.title }}</h2>
+            <h2> {{ entry.text_content }}</h2>
 
 
-    {% endfor %}
+
+  
 
 {% endblock %}
