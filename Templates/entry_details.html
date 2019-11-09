@@ -1,11 +1,16 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% block content %}
 
 <h1>entry detail for {{ entry_id }} </h1>
         <div class='entry-div'>
 
             <h2> {{ entry.title }}</h2>
-            <h2> {{ entry.text_content }}</h2>
+            <p>{{ entry.date }}</p><br>
+            <p> {{ entry.text_content }}</p><br>
+            <p>{{ entry.lucidity }}</p><br>
+            <p>{{ entry.lucid_intent }}</p><br>
+
+
 
 
 

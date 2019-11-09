@@ -3,12 +3,47 @@
 
     <title>Login</title>
    
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">DreamBase</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register">Register</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
     <h1> Login </h1>
+
+    <form action="/login" method="POST">
+    <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter username">
+    <small id="emailHelp" class="form-text text-muted">Welcome back.</small>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<!-- 
     <form action="/login" method="POST">
         Username <input type="text" name="username"><br>
         Password <input type="text" name="password"><br>
         <input type="submit">
-    </form>
+    </form> -->
 
     <p> Not a user? </p><a href="/register">Register now</a>
 
