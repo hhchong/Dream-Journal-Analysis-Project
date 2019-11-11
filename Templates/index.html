@@ -1,5 +1,5 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base2.html' %}
+
 
 {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -11,16 +11,17 @@
   {% endif %}
 {% endwith %}
 
-<h1> entries</h1>
-{% for entry in entry_posts %}
-{{ entry }}
+{% block content %}
+
+    {% for entry in entries %}
+
+    <h2>
+        <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">{{ entry.title }}
+        </a>
+    </h2>
+
+    <p>{{ entry.date.strftime('%m/%d/%Y') }}</p><br>
+
+
 {% endfor %}
-
-<h2><a href="/entryform">Add entry to database!</a></h2>
-
-<h2><a href="/logout">Logout</a></h2>
-
-
-
-
 {% endblock %}

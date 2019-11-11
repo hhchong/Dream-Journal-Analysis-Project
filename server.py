@@ -119,7 +119,10 @@ def logout():
 """index page, shows past week of posts (title, date, ratings), (drafts), and calendar, (eventually other peoples dreams"""
 @app.route('/index')
 def show_index():
-    return render_template("/index.html")
+    logged_user = session['current_user_id']
+    entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
+    return render_template("/index.html",
+                            entries=entries)
 
 
 
@@ -200,7 +203,7 @@ def process_entryform():
     flash("successfully saved entry")
 
     #create its own entry details page
-    return redirect("/journal")
+    return redirect("/index")
 
 
 """edit entry"""
