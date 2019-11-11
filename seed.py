@@ -121,21 +121,6 @@ def load_settings():
     db.session.commit()
     
 
-# def load_intensity():
-#     """load intensity into database."""
-#     print("Intensity")
-
-#     Intensity.query.delete()
-
-#     for level in intensity_tags:
-#         intensity_index = intensity_tags.index(level) + 1
-#         add_intensity = Intensity(intensity_id=intensity_index, intensity=level)
-
-#         db.session.add(add_intensity)
-
-#     db.session.commit()
-
-
 if __name__ == "__main__":
 
     connect_to_db(app)

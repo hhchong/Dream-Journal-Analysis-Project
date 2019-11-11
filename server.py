@@ -15,17 +15,17 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
-#flask login
+#FIGURE OUT flask login
 
 @app.route('/')
 def index():
     """Homepage."""
     return render_template("homepage.html")
 
-"""registeration for site"""
 
 @ app.route("/register", methods=['GET'])
 def registration_form():
+    """show registration form for site"""
 
     username = request.args.get("username")
     email = request.args.get("email")
@@ -46,6 +46,7 @@ def registration_form():
 
 @app.route("/register", methods=['POST'])
 def registration_process():
+    """process registration form"""
 
     username = request.form["username"]
     email = request.form["email"]
@@ -77,6 +78,7 @@ def registration_process():
 
     return redirect("/")
 
+"""FIGURE OUT how to keep someone logged in so it doesnt redirect to homepage but to index"""
 """login to website"""
 
 @app.route("/login", methods=['GET'])
@@ -129,7 +131,7 @@ def show_journal():
     
 
 
-    entries = Entry.query.filter(Entry.user_id == logged_user).all()
+    entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
 
 
     # get session object of user with user user_id
@@ -198,10 +200,14 @@ def process_entryform():
     flash("successfully saved entry")
 
     #create its own entry details page
-    return redirect("/entry_details/<entry_id>")
+    return redirect("/journal")
 
 
 """edit entry"""
+
+
+
+
 
 
 @app.route('/entry_details/<entry_id>', methods=['GET'])
