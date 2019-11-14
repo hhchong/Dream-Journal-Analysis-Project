@@ -7,6 +7,10 @@ from flask import (Flask, render_template, redirect, request, flash,
 
 from model import User, Entry, Emotion, EntryEmotion, Character, EntryCharacter, Theme, EntryTheme, Setting, EntrySetting, connect_to_db, db
 
+from peewee import *
+
+from playhouse.sqlite_ext import *
+
 
 app = Flask(__name__)
 
@@ -164,6 +168,11 @@ def show_entryform():
         mood_sleep = request.args.get("mood_sleep")
         lucidity = request.args.get("lucidity")
         lucid_intent = request.args.get("lucid_intent")
+        emotions = request.args.get("emotions")
+        # characters = request.args.get("characters")
+        # themes = request.args.get("themes")
+        # settings = request.args.get("settings")
+
 
         return render_template("entryform.html",
                                 date=date,
@@ -173,7 +182,11 @@ def show_entryform():
                                 mood_awake=mood_awake,
                                 mood_sleep=mood_sleep,
                                 lucidity=lucidity,
-                                lucid_intent=lucid_intent)
+                                lucid_intent=lucid_intent,
+                                emotions=emotions)
+                                # characters=characters,
+                                # themes=themes,
+                                # settings=settings)
 
 @app.route("/entryform", methods=['POST'])
 def process_entryform():
@@ -187,7 +200,12 @@ def process_entryform():
     lucidity = request.form["lucidity"]
     lucid_intent = request.form["lucid_intent"]
     user_id = session['current_user_id']
-
+    emotions = request.form.getlist("emotions")
+    # characters = request.form["characters"]
+    # themes = request.form["themes"]
+    # settings = request.form["settings"]
+    print('kjgftftfhgvjgv')
+    print(emotions)
     entry = Entry(user_id=user_id,
                   date=date,
                   text_content=text_content,
@@ -197,7 +215,36 @@ def process_entryform():
                   mood_sleep=mood_sleep,
                   lucidity=lucidity,
                   lucid_intent=lucid_intent)
+    db.session.add(entry)
+    db.session.commit()
     
+    for emotion in emotions:
+
+        query_emotion = Emotion.query.filter(Emotion.emotion_id == emotion).first()
+        
+        print(query_emotion)
+            
+        emotion = EntryEmotion(entry_id=entry.entry_id, emotion_id=query_emotion.emotion_id)
+
+        db.session.add(emotion)
+        db.session.commit()
+               
+    # if characters:
+    #     for character in characters:
+    #         character = Character(character=character)
+    #         entry.characters.append(character)
+
+    # if themes:
+    #     for theme in themes:
+    #         theme = Theme(theme=theme)
+    #         entry.themes.append(theme)
+
+    # if settings:
+    #     for setting in settings:
+    #         setting = Setting(setting=setting)
+    #         entry.settings.append(setting)
+
+
     db.session.add(entry)
     db.session.commit()
     flash("successfully saved entry")
@@ -227,7 +274,19 @@ def show_entry_details(entry_id):
 
 
 
+# """search entries using word"""
+# @app.route('/search', methods=['GET'])
+# def search():
+#     search_query = request.args.get('searchthis')
 
+#     query = Entry.search(search_query)
+
+#     if search_query:
+#         query = Entry.search(search_query)
+#     else:
+#         query = Entry.public().order_by(Entry.timestamp.desc())
+
+#     return object_list('search.html', query, search=search_query, query=query,check_bounds=False )
 
 
 
