@@ -47,7 +47,8 @@ class Entry(db.Model):
     hours_slept = db.Column(db.Integer)
 
     mood_awake = db.Column(db.Integer)
-    mood_sleep = db.Column(db.Integer)
+
+    clarity = db.Column(db.Integer)
 
     lucidity = db.Column(db.Integer)
     lucid_intent = db.Column(db.Integer)
@@ -73,7 +74,7 @@ class Entry(db.Model):
 
     def __repr__(self):
 
-        return f"<Entry entry_id={self.entry_id} user_id={self.user_id} date={self.date} text_content={self.text_content} title={self.title} hours_slept={self.hours_slept} mood_awake={self.mood_awake} mood_sleep={self.mood_sleep} lucidity={self.lucidity} lucid_intent={self.lucid_intent}>"
+        return f"<Entry entry_id={self.entry_id} user_id={self.user_id} date={self.date} text_content={self.text_content} title={self.title} hours_slept={self.hours_slept} mood_awake={self.mood_awake} clarity={self.clarity} lucidity={self.lucidity} lucid_intent={self.lucid_intent}>"
 
 
 class Emotion(db.Model):

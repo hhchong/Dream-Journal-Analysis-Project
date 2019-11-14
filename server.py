@@ -165,13 +165,13 @@ def show_entryform():
         title = request.args.get("title")
         hours_slept = request.args.get("hours_slept")
         mood_awake = request.args.get("mood_awake")
-        mood_sleep = request.args.get("mood_sleep")
+        clarity = request.args.get("clarity")
         lucidity = request.args.get("lucidity")
         lucid_intent = request.args.get("lucid_intent")
         emotions = request.args.get("emotions")
-        # characters = request.args.get("characters")
-        # themes = request.args.get("themes")
-        # settings = request.args.get("settings")
+        characters = request.args.get("characters")
+        themes = request.args.get("themes")
+        settings = request.args.get("settings")
 
 
         return render_template("entryform.html",
@@ -180,13 +180,13 @@ def show_entryform():
                                 title=title,
                                 hours_slept=hours_slept,
                                 mood_awake=mood_awake,
-                                mood_sleep=mood_sleep,
+                                clarity=clarity,
                                 lucidity=lucidity,
                                 lucid_intent=lucid_intent,
-                                emotions=emotions)
-                                # characters=characters,
-                                # themes=themes,
-                                # settings=settings)
+                                emotions=emotions,
+                                characters=characters,
+                                themes=themes,
+                                settings=settings)
 
 @app.route("/entryform", methods=['POST'])
 def process_entryform():
@@ -196,23 +196,23 @@ def process_entryform():
     title = request.form["title"]
     hours_slept = request.form["hours_slept"]
     mood_awake = request.form["mood_awake"]
-    mood_sleep = request.form["mood_sleep"]
+    clarity = request.form["clarity"]
     lucidity = request.form["lucidity"]
     lucid_intent = request.form["lucid_intent"]
     user_id = session['current_user_id']
     emotions = request.form.getlist("emotions")
-    # characters = request.form["characters"]
-    # themes = request.form["themes"]
-    # settings = request.form["settings"]
-    print('kjgftftfhgvjgv')
-    print(emotions)
+    characters = request.form.getlist("characters")
+    themes = request.form.getlist("themes")
+    settings = request.form.getlist("settings")
+
+
     entry = Entry(user_id=user_id,
                   date=date,
                   text_content=text_content,
                   title=title,
                   hours_slept=hours_slept,
                   mood_awake=mood_awake,
-                  mood_sleep=mood_sleep,
+                  clarity=clarity,
                   lucidity=lucidity,
                   lucid_intent=lucid_intent)
     db.session.add(entry)
@@ -228,25 +228,36 @@ def process_entryform():
 
         db.session.add(emotion)
         db.session.commit()
-               
-    # if characters:
-    #     for character in characters:
-    #         character = Character(character=character)
-    #         entry.characters.append(character)
 
-    # if themes:
-    #     for theme in themes:
-    #         theme = Theme(theme=theme)
-    #         entry.themes.append(theme)
+    for character in characters:
 
-    # if settings:
-    #     for setting in settings:
-    #         setting = Setting(setting=setting)
-    #         entry.settings.append(setting)
+        query_character = Character.query.filter(Character.character_id == character).first()
+
+        character = EntryCharacter(entry_id=entry.entry_id, character_id=query_character.character_id)
+
+        db.session.add(character)
+        db.session.commit()
+
+    for theme in themes:
+
+        query_theme = Theme.query.filter(Theme.theme_id == theme).first()
+
+        theme = EntryTheme(entry_id=entry.entry_id, theme_id=query_theme.theme_id)
+
+        db.session.add(theme)
+        db.session.commit()
+
+    for setting in settings:
+
+        query_setting = Setting.query.filter(Setting.setting_id == setting).first()
+
+        setting = EntrySetting(entry_id=entry.entry_id, setting=query_setting.setting_id)
+
+        db.session.add(setting)
+        db.session.commit()
 
 
-    db.session.add(entry)
-    db.session.commit()
+
     flash("successfully saved entry")
 
     #create its own entry details page
@@ -290,7 +301,7 @@ def show_entry_details(entry_id):
 
 
 
-
+#ilike query to search through text content
 
 
 

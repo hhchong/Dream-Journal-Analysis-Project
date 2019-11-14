@@ -13,7 +13,6 @@ emotions_tags = ["angry", "stressed", "confused", "happy", "peaceful",
 characters_tags=["friend", "significant_other", "animal", "parent", "child", "celebrity", "relative", "stranger", "ex", "non_human"]
 themes_tags=["fun", "dramatic", "violent", "sexuality", "relationships", "nightmare", "spiritual", "friendly", "action", "loss"]
 settings_tags=["outdoor", "indoor", "school", "home", "work", "automobile", "familiar", "unfamiliar"]
-intensity_tags=[ 1, 2, 3, 4, 5]
 
 
 
@@ -46,13 +45,13 @@ def load_testentries():
     test_entry1 = Entry(user_id=1, date="31-Oct-2015", 
                         text_content="this is my test dream entry", 
                         title="title", hours_slept=8, 
-                        mood_awake=1, mood_sleep=1, 
+                        mood_awake=1, clarity=1, 
                         lucidity=1, lucid_intent=1)
 
     test_entry2 = Entry(user_id=1, date="1-Nov-2015", 
                         text_content="this is my second test dream entry", 
                         title="title", hours_slept=8, 
-                        mood_awake=1, mood_sleep=1, 
+                        mood_awake=1, clarity=1, 
                         lucidity=1, lucid_intent=1)
     db.session.add(test_entry1)
     db.session.add(test_entry2)
