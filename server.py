@@ -251,7 +251,7 @@ def process_entryform():
 
         query_setting = Setting.query.filter(Setting.setting_id == setting).first()
 
-        setting = EntrySetting(entry_id=entry.entry_id, setting=query_setting.setting_id)
+        setting = EntrySetting(entry_id=entry.entry_id, setting_id=query_setting.setting_id)
 
         db.session.add(setting)
         db.session.commit()
