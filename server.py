@@ -303,7 +303,14 @@ def show_entry_details(entry_id):
 
 #ilike query to search through text content
 
+#JSONIFY STUFF....FOR CHARTS
+@app.route('/charts')
+def show_charts():
+    """Show charts"""
 
+    user_id = session['current_user_id']
+
+    return render_template('charts.html')
 
 
 
