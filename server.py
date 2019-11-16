@@ -1,13 +1,15 @@
 from jinja2 import StrictUndefined
 
 from flask import (Flask, render_template, redirect, request, flash,
-                   session)
+                   session, jsonify)
 
 # from flask_debugtoolbar import DebugToolbarExtension
 
 from model import User, Entry, Emotion, EntryEmotion, Character, EntryCharacter, Theme, EntryTheme, Setting, EntrySetting, connect_to_db, db
 
 from peewee import *
+
+from collections import Counter
 
 from playhouse.sqlite_ext import *
 
@@ -306,11 +308,48 @@ def show_entry_details(entry_id):
 #JSONIFY STUFF....FOR CHARTS
 @app.route('/charts')
 def show_charts():
-    """Show charts"""
+    """Show page with charts"""
 
     user_id = session['current_user_id']
 
     return render_template('charts.html')
+
+
+@app.route('/emotions_data.json')
+def return_emotions():
+    """return how often each emotion occurs in all dreams"""
+
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+
+    emotions = []
+    emotions_dict = {}
+
+    for entry in user.entries:
+        for emotion in entry.emotions:
+            emotions_dict[emotion.emotion] = emotions_dict.get(emotion.emotion, 0) + 1
+
+    print(emotions_dict)
+
+    # for emotion in emotions:
+    #     emotions_dict[emotion] = emotions_dict.get(emotion, 0) + 1
+
+    chart_emotion_dict = {'labels' : list(emotions_dict.keys()), 
+                        'datasets': [{
+                        'data': list(emotions_dict.values()), 
+                        'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273']}]}
+
+    print(chart_emotion_dict)
+    # for emotion in emotions_dict.keys():
+    #     emotion_str = str(emotion)
+    #     emotion_name = emotion_str[30:-1]
+    #     chart_emotion_dict['labels'].append(emotion_name)
+
+    # val = list(emotions_dict.values())
+
+    # chart_emotion_dict['datasets'][0]['data'].append(val)
+
+    return jsonify(chart_emotion_dict)
 
 
 

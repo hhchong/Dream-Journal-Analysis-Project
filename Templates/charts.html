@@ -1,0 +1,35 @@
+{% extends 'base2.html' %}
+{% block content %}
+<head>
+<div class="chart">
+    <canvas id="emotionsChart"></canvas>
+    <div id="emotionLegend" class="chart-legend"></div>
+  </div>
+</head>
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
+
+<script type="text/javascript">
+    var emotionsOptions = {
+        responsive: true,
+        title: {display: true,
+                       text: 'Emotions',
+                       fontSize: 20}
+    };
+    console.log('STRINGGG')
+
+    var ctx_donut = $("#emotionsChart").get(0).getContext("2d");
+    console.log(ctx_donut)
+
+
+    $.get('/emotions_data.json', function(data){
+        let myDonutChart = new Chart(ctx_donut, {
+                                                  type: 'doughnut',
+                                                  data: data,
+                                                  options: emotionsOptions
+                                                });
+          // $('#emotionLegend').html(myDonutChart.generateLegend());
+    });
+</script>
+
+{% endblock %}
