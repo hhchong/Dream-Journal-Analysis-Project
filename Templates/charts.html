@@ -5,6 +5,18 @@
     <canvas id="emotionsChart"></canvas>
     <div id="emotionLegend" class="chart-legend"></div>
   </div>
+  <div class="chart">
+    <canvas id="charactersChart"></canvas>
+    <div id="emotionLegend" class="chart-legend"></div>
+  </div>
+  <div class="chart">
+    <canvas id="themesChart"></canvas>
+    <div id="emotionLegend" class="chart-legend"></div>
+  </div>
+  <div class="chart">
+    <canvas id="settingsChart"></canvas>
+    <div id="emotionLegend" class="chart-legend"></div>
+  </div>
 </head>
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
@@ -16,20 +28,67 @@
                        text: 'Emotions',
                        fontSize: 20}
     };
-    console.log('STRINGGG')
+    
+    var charactersOptions = {
+    responsive: true,
+    title: {display: true,
+                       text: 'Characters',
+                       fontSize: 20}
+    };
 
-    var ctx_donut = $("#emotionsChart").get(0).getContext("2d");
-    console.log(ctx_donut)
+    var themesOptions = {
+    responsive: true,
+    title: {display: true,
+                       text: 'Themes',
+                       fontSize: 20}
+    };
+
+    var settingsOptions = {
+    responsive: true,
+    title: {display: true,
+                       text: 'Settings',
+                       fontSize: 20}
+    };
+
+    var ctx_emotion_donut = $("#emotionsChart").get(0).getContext("2d");
+    let ctx_character_donut = $("#charactersChart").get(0).getContext("2d");
+    let ctx_theme_donut = $("#themesChart").get(0).getContext("2d");
+    let ctx_setting_donut = $("#settingsChart").get(0).getContext("2d");
+
 
 
     $.get('/emotions_data.json', function(data){
-        let myDonutChart = new Chart(ctx_donut, {
+        let myDonutChart = new Chart(ctx_emotion_donut, {
                                                   type: 'doughnut',
                                                   data: data,
                                                   options: emotionsOptions
                                                 });
           // $('#emotionLegend').html(myDonutChart.generateLegend());
     });
+    $.get('/characters_data.json', function(data){
+        let myDonutChart = new Chart(ctx_character_donut, {
+                                                  type: 'doughnut',
+                                                  data: data,
+                                                  options: charactersOptions
+                                                });
+    });
+
+    $.get('/themes_data.json', function(data){
+        let myDonutChart = new Chart(ctx_theme_donut, {
+                                                  type: 'doughnut',
+                                                  data: data,
+                                                  options: themesOptions
+                                                });
+    });
+
+    $.get('/settings_data.json', function(data){
+        let myDonutChart = new Chart(ctx_setting_donut, {
+                                                  type: 'doughnut',
+                                                  data: data,
+                                                  options: settingsOptions
+                                                });
+    });
+
 </script>
 
 {% endblock %}

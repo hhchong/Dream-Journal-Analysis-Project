@@ -351,6 +351,69 @@ def return_emotions():
 
     return jsonify(chart_emotion_dict)
 
+@app.route('/characters_data.json')
+def return_characters():
+    """return how often characters occur in all dreams"""
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+
+    characters = []
+    characters_dict = {}
+
+    for entry in user.entries:
+        for character in entry.characters:
+            characters_dict[character.character] = characters_dict.get(character.character, 0) + 1
+
+    chart_character_dict = {'labels' : list(characters_dict.keys()), 
+                        'datasets': [{
+                        'data': list(characters_dict.values()), 
+                        'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273', '#98afd4']}]}
+
+    return jsonify(chart_character_dict)
+
+
+@app.route('/themes_data.json')
+def return_themes():
+    """return how often themes occur in all dreams"""
+
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+
+    themes = []
+    themes_dict = {}
+
+    for entry in user.entries:
+        for theme in entry.themes:
+            themes_dict[theme.theme] = themes_dict.get(theme.theme, 0) + 1
+
+    chart_theme_dict = {'labels' : list(themes_dict.keys()), 
+                        'datasets': [{
+                        'data': list(themes_dict.values()), 
+                        'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273','#98afd4']}]}
+
+    return jsonify(chart_theme_dict)
+
+@app.route('/settings_data.json')
+def return_settings():
+    """return how often settings occur in all dreams"""
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+
+    settings = []
+    settings_dict = {}
+
+    for entry in user.entries:
+        for setting in entry.settings:
+            settings_dict[setting.setting] = settings_dict.get(setting.setting, 0) + 1
+
+    chart_setting_dict = {'labels' : list(settings_dict.keys()), 
+                        'datasets': [{
+                        'data': list(settings_dict.values()), 
+                        'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273']}]}
+
+    return jsonify(chart_setting_dict)
+
+
 
 
 
