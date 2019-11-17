@@ -17,11 +17,16 @@
     <canvas id="settingsChart"></canvas>
     <div id="emotionLegend" class="chart-legend"></div>
   </div>
+  <div class="chart">
+    <canvas id="lucidityChart"></canvas>
+    <div id="emotionLegend" class="chart-legend"></div>
+  </div>
 </head>
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
 
 <script type="text/javascript">
+
     var emotionsOptions = {
         responsive: true,
         title: {display: true,
@@ -50,10 +55,20 @@
                        fontSize: 20}
     };
 
+    var lucidityOptions = {
+        responsive: true,
+        title: {display : true,
+                    text: 'Lucidity',
+                    fontSize: 20
+
+        }
+    };
+
     var ctx_emotion_donut = $("#emotionsChart").get(0).getContext("2d");
     let ctx_character_donut = $("#charactersChart").get(0).getContext("2d");
     let ctx_theme_donut = $("#themesChart").get(0).getContext("2d");
     let ctx_setting_donut = $("#settingsChart").get(0).getContext("2d");
+    let ctx_lucidity_chart = $("#lucidityChart").get(0).getContext("2d");
 
 
 
@@ -87,6 +102,14 @@
                                                   data: data,
                                                   options: settingsOptions
                                                 });
+    });
+
+    $.get('/lucidity_data.json', function(data){
+        let myLucidChart = new Chart(ctx_lucidity_chart, {
+                                                  type: 'line',
+                                                  data: data,
+                                                  options: lucidityOptions
+        });
     });
 
 </script>

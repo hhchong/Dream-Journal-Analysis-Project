@@ -413,6 +413,49 @@ def return_settings():
 
     return jsonify(chart_setting_dict)
 
+@app.route('/lucidity_data.json')
+def return_lucidity():
+    """return lucid progress over all dreams"""
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+
+    date_lst = []
+    lucidity_lst = []
+    lucid_intent_lst = []
+
+    for entry in user.entries:
+        date = entry.date.strftime('%m/%d/%Y') 
+        date_lst.append(date)
+        lucidity_lst.append(entry.lucidity)
+        lucid_intent_lst.append(entry.lucid_intent)
+    print(date_lst)
+    print(lucidity_lst)
+    print(lucid_intent_lst)
+
+    chart_lucidity_dict = {'labels' : date_lst,
+                            'datasets' : [{
+                            'data' : lucidity_lst,
+                            'label' : "Lucidity",
+                            'borderColor': "#3e95cd",
+                            'fill': True
+                            },
+                            {'data' : lucid_intent_lst,
+                            'label' : "Lucid Intent",
+                            'borderColor': "##8e5ea2",
+                            'fill': True
+                            }
+                            ]}
+
+    return jsonify(chart_lucidity_dict)
+
+
+
+
+# @app.route('/sleepquality_data.json')
+# def return_sleepquality():
+    """return clarity and hours slept for all dreams"""
+
+# @app.route('/')
 
 
 
