@@ -284,22 +284,20 @@ def show_entry_details(entry_id):
                             entry_id=entry_id,
                             entry=entry)
 
+@app.route('/search', methods=['GET'])
+def search_term():
 
+    user_id = session['current_user_id']
+    # user = User.query.get(user_id)
 
+    phrase = request.args.get('search')
 
-# """search entries using word"""
-# @app.route('/search', methods=['GET'])
-# def search():
-#     search_query = request.args.get('searchthis')
+    if phrase:
+        entries = Entry.query.filter(Entry.user_id == user_id, Entry.text_content.ilike(f'%{phrase}%')).all()
+    else:
+        entries = Entry.query.filter(Entry.user_id == user_id).order_by(Entry.date.desc()).all()
 
-#     query = Entry.search(search_query)
-
-#     if search_query:
-#         query = Entry.search(search_query)
-#     else:
-#         query = Entry.public().order_by(Entry.timestamp.desc())
-
-#     return object_list('search.html', query, search=search_query, query=query,check_bounds=False )
+    return render_template('search.html', entries=entries)
 
 
 
@@ -327,6 +325,7 @@ def return_emotions():
 
     for entry in user.entries:
         for emotion in entry.emotions:
+            #increment value by one each time an emotion appears in a dream entry
             emotions_dict[emotion.emotion] = emotions_dict.get(emotion.emotion, 0) + 1
 
 
@@ -359,6 +358,7 @@ def return_characters():
 
     for entry in user.entries:
         for character in entry.characters:
+            #increment value by one each time a character appears in a dream entry
             characters_dict[character.character] = characters_dict.get(character.character, 0) + 1
 
     chart_character_dict = {'labels' : list(characters_dict.keys()), 
@@ -381,6 +381,7 @@ def return_themes():
 
     for entry in user.entries:
         for theme in entry.themes:
+            #increment value by one each time a theme appears in a dream entry
             themes_dict[theme.theme] = themes_dict.get(theme.theme, 0) + 1
 
     chart_theme_dict = {'labels' : list(themes_dict.keys()), 
@@ -401,6 +402,7 @@ def return_settings():
 
     for entry in user.entries:
         for setting in entry.settings:
+            #increment value by one each time a setting appears in a dream entry
             settings_dict[setting.setting] = settings_dict.get(setting.setting, 0) + 1
 
     chart_setting_dict = {'labels' : list(settings_dict.keys()), 
@@ -465,7 +467,6 @@ def return_sleepquality():
         date_lst.append(date)
         hours_lst.append(entry.hours_slept)
 
-
     chart_hours_dict = {'labels' : date_lst,
                             'datasets' : [{
                             'data' : hours_lst,
@@ -509,12 +510,6 @@ def return_mood():
             elif "surprised" in emotion:
                 pass
                 
-        
-
-           
-    print(positive_dict)
-    print(list(positive_dict.values()))
-    print(list(negative_dict.values()))
 
     chart_mood_dict = {'labels': date_lst,
                         'datasets' : [{
