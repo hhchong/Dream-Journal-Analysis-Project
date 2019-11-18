@@ -329,7 +329,6 @@ def return_emotions():
         for emotion in entry.emotions:
             emotions_dict[emotion.emotion] = emotions_dict.get(emotion.emotion, 0) + 1
 
-    print(emotions_dict)
 
     # for emotion in emotions:
     #     emotions_dict[emotion] = emotions_dict.get(emotion, 0) + 1
@@ -338,8 +337,6 @@ def return_emotions():
                         'datasets': [{
                         'data': list(emotions_dict.values()), 
                         'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273']}]}
-
-    print(chart_emotion_dict)
     # for emotion in emotions_dict.keys():
     #     emotion_str = str(emotion)
     #     emotion_name = emotion_str[30:-1]
@@ -422,40 +419,116 @@ def return_lucidity():
     date_lst = []
     lucidity_lst = []
     lucid_intent_lst = []
+    clarity_lst = []
 
     for entry in user.entries:
         date = entry.date.strftime('%m/%d/%Y') 
         date_lst.append(date)
         lucidity_lst.append(entry.lucidity)
         lucid_intent_lst.append(entry.lucid_intent)
-    print(date_lst)
-    print(lucidity_lst)
-    print(lucid_intent_lst)
+        clarity_lst.append(entry.clarity)
 
     chart_lucidity_dict = {'labels' : date_lst,
                             'datasets' : [{
                             'data' : lucidity_lst,
                             'label' : "Lucidity",
-                            'borderColor': "#3e95cd",
-                            'fill': True
+                            'borderColor': "#41C3C0",
+                            'fill': True,
+                            'backgroundColor': "rgba(145, 221, 220, .5)"
                             },
                             {'data' : lucid_intent_lst,
                             'label' : "Lucid Intent",
                             'borderColor': "##8e5ea2",
+                            'fill': True
+                            },
+                            {
+                            'data' : clarity_lst,
+                            'label' : "Clarity",
+                            'borderColor': "#3cba9f",
                             'fill': True
                             }
                             ]}
 
     return jsonify(chart_lucidity_dict)
 
+@app.route('/sleepquality_data.json')
+def return_sleepquality():
+    """hours slept for all dreams in the past week for the gradient chart"""
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+
+    hours_lst = []
+    date_lst = []
+
+    for entry in user.entries:
+        date = entry.date.strftime('%m/%d/%Y')
+        date_lst.append(date)
+        hours_lst.append(entry.hours_slept)
 
 
+    chart_hours_dict = {'labels' : date_lst,
+                            'datasets' : [{
+                            'data' : hours_lst,
+                            'label' : "Lucidity",
+                            'borderColor': "#41C3C0",
+                            'fill': True,
+                            'backgroundColor': "rgba(145, 221, 220, .5)"
+                            }
+                            ]}
 
-# @app.route('/sleepquality_data.json')
-# def return_sleepquality():
-    """return clarity and hours slept for all dreams"""
+    return jsonify(chart_hours_dict)
 
-# @app.route('/')
+# mood chart as line (gradient line no fill) mixed with emotions as positive/negative??? as bars. 
+
+@app.route('/mood_data.json')
+def return_mood():
+    """mood and positive/negative dream emotions"""
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+
+    postive = 0
+    negative = 0
+    positive_dict = {}
+    negative_dict = {}
+    mood_lst = []
+    date_lst = []
+
+    for entry in user.entries:
+        date = entry.date.strftime('%m/%d/%Y')
+        date_lst.append(date)
+        mood = entry.mood_awake - 3
+        mood_lst.append(mood)
+        for item in entry.emotions:
+            emotion = str(item)
+            if "happy" in emotion or "peaceful" in emotion:
+                positive_dict[date] = positive_dict.get(date, 0) + 1
+            elif "angry" in emotion or "stressed" in emotion or "confused" in emotion or "worried" in emotion or "guilty" in emotion or "sad" in emotion: 
+                negative_dict[date] = negative_dict.get(date, 0) + 1
+            elif "surprised" in emotion:
+                pass
+
+    chart_mood_dict = {'labels': date_lst,
+                        'datasets' : [{
+                            'data' : mood_lst,
+                            'label' : 'Mood',
+                            'fill' : False,
+                        #     'borderColor': "#41C3C0",
+                        #     'yAxisID' : 'left-axis'
+                        # },
+                        #     {
+                        #     'type': "bar",
+                        #     'data' : list(positive_dict.keys()),
+                        #     'label' : 'positive',
+                        #     'fill' : True,
+                        #     'borderColor': "#3cba9f",
+                        #     'yAxisID' : 'right-axis'
+
+                        }
+                        ]}
+
+
+    return jsonify(chart_mood_dict)
+
 
 
 
