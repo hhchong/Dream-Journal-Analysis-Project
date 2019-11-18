@@ -286,6 +286,7 @@ def show_entry_details(entry_id):
 
 @app.route('/search', methods=['GET'])
 def search_term():
+    """search through text_content with phrase"""
 
     user_id = session['current_user_id']
     # user = User.query.get(user_id)
@@ -470,7 +471,7 @@ def return_sleepquality():
     chart_hours_dict = {'labels' : date_lst,
                             'datasets' : [{
                             'data' : hours_lst,
-                            'label' : "Lucidity",
+                            'label' : "Hours Slept",
                             'borderColor': "#41C3C0",
                             'fill': True,
                             'backgroundColor': "rgba(145, 221, 220, .5)"
