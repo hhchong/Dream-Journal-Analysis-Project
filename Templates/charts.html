@@ -88,7 +88,7 @@
             xAxes: [{display: true, scaleLabel: {display:true, labelString: 'Date'}}],
             yAxes: [{
                 type: 'linear',
-                id: 'left-axes',
+                id: 'left-axis',
                 display: true,
                 position: 'left',
                 scaleLabel: {display: true, labelString: 'mood'},
@@ -99,11 +99,14 @@
                 }
             }, {
                 type:'linear',
-                id: 'right_axis',
+                id: 'right-axis',
                 display: true,
                 position: 'right',
                 scaleLabel: {display: true, labelString: 'emotion'},
                 ticks: {
+                    max: 4,
+                    min: -4,
+
                     stepSize: 1
                 }
             }]
@@ -169,7 +172,7 @@
 
     $.get('/mood_data.json', function(data){
         let myMoodChart = new Chart(ctx_mood_chart, {
-                                                  type: 'line',
+                                                  type: 'bar',
                                                   data: data,
                                                   options: moodOptions,
 

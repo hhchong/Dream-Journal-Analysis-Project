@@ -498,32 +498,52 @@ def return_mood():
         date_lst.append(date)
         mood = entry.mood_awake - 3
         mood_lst.append(mood)
+        positive_dict[date] = 0
+        negative_dict[date] = 0
         for item in entry.emotions:
             emotion = str(item)
             if "happy" in emotion or "peaceful" in emotion:
                 positive_dict[date] = positive_dict.get(date, 0) + 1
             elif "angry" in emotion or "stressed" in emotion or "confused" in emotion or "worried" in emotion or "guilty" in emotion or "sad" in emotion: 
-                negative_dict[date] = negative_dict.get(date, 0) + 1
+                negative_dict[date] = negative_dict.get(date, 0) - 1
             elif "surprised" in emotion:
                 pass
+                
+        
+
+           
+    print(positive_dict)
+    print(list(positive_dict.values()))
+    print(list(negative_dict.values()))
 
     chart_mood_dict = {'labels': date_lst,
                         'datasets' : [{
+                            'type' : 'line',
                             'data' : mood_lst,
                             'label' : 'Mood',
                             'fill' : False,
-                        #     'borderColor': "#41C3C0",
-                        #     'yAxisID' : 'left-axis'
-                        # },
-                        #     {
-                        #     'type': "bar",
-                        #     'data' : list(positive_dict.keys()),
-                        #     'label' : 'positive',
-                        #     'fill' : True,
-                        #     'borderColor': "#3cba9f",
-                        #     'yAxisID' : 'right-axis'
+                            'borderColor': "#41C3C0",
+                            'yAxisID' : 'left-axis'
+                        },
+                            {
 
-                        }
+                            'data' : list(positive_dict.values()),
+                            'label' : 'positive',
+                            'fill' : True,
+                            # 'type': "bar",
+                            'borderColor': "#3cba9f",
+                            'backgroundColor' : "#3cba9f",
+                            'yAxisID' : 'right-axis'
+
+                        },
+                            {
+                            'data' : list(negative_dict.values()),
+                            'label' : 'negative',
+                            'fill' : True,
+                            'borderColor': "#e8c3b9",
+                            'backgroundColor' : "#e8c3b9",
+                            'yAxisID' : 'right-axis'
+                            }
                         ]}
 
 
