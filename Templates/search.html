@@ -1,7 +1,19 @@
 {% extends 'base2.html' %}
 {% block content %}
 
-{% for entry in entries %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+
+    {% for entry in entries %}
 
     <h2>
         <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">{{ entry.title }}
@@ -10,5 +22,7 @@
 
     <p>{{ entry.date.strftime('%m/%d/%Y') }}</p><br>
 
-{% endfor %}
+    {% endfor %}
+
+
 {% endblock %}

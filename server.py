@@ -127,6 +127,8 @@ def logout():
 def show_index():
     logged_user = session['current_user_id']
     entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
+    for entry in entries:
+        print(entry.title, entry.text_content)
     return render_template("/index.html",
                             entries=entries)
 
@@ -292,11 +294,9 @@ def search_term():
     # user = User.query.get(user_id)
 
     phrase = request.args.get('search')
-
+  
     if phrase:
-        entries = Entry.query.filter(Entry.user_id == user_id, Entry.text_content.ilike(f'%{phrase}%')).all()
-    else:
-        entries = Entry.query.filter(Entry.user_id == user_id).order_by(Entry.date.desc()).all()
+         entries = Entry.query.filter(Entry.user_id == user_id, Entry.text_content.ilike(f'%{phrase}%')).all()
 
     return render_template('search.html', entries=entries)
 

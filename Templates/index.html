@@ -12,18 +12,32 @@
 {% endwith %}
 
 {% block content_title %} Blog entries {% endblock %}
-
 {% block content %}
 
-    {% for entry in entries %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel-body">
+      <ul class="list-group">
+        {% for entry in entries %}
+        <li>
+        
+          <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}" class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ entry.title }}</h5>
+              <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
+            </div>
+          </a>
 
-    <h2>
-        <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">{{ entry.title }}
-        </a>
-    </h2>
+            
+          </li>
+          {% endfor %}
+        
+      </ul>
+    </div>
+  </div>
 
-    <p>{{ entry.date.strftime('%m/%d/%Y') }}</p><br>
+</div>
+  
 
 
-{% endfor %}
 {% endblock %}
