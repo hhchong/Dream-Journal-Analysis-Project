@@ -12,6 +12,21 @@ $('.delete-entry').click(function(){
 
 });
 
+$('.edit-entry').click(function(){
+
+    const entry_id = $(this).data('entry-id');
+
+    $.post('/populate_modal', {'entry_id' : entry_id}, (res) => {
+
+        let data = JSON.parse(res);
+
+        $('#editTitle').val(data['title']);
+        $('#editDescription').val(data['text']);
+
+        $('#editModal').modal();
+
+    });
+});
 
 
 

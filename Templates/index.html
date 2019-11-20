@@ -27,8 +27,7 @@
               <h5 class="mb-1">{{ entry.title }}</h5></a>
 
                <div class="pull-right">
-               <button class="btn edit-entry" data-toggle="modal"
-                data-target="#editModal" data-entry-id="{{ entry.entry_id }}"><span class="fas fa-pencil-alt"></span></button>
+               <button class="btn edit-entry" data-entry-id="{{ entry.entry_id }}"><span class="fas fa-pencil-alt"></span></button>
                 <button class="btn delete-entry" data-entry-id="{{ entry.entry_id }}"><span class="far fa-trash-alt"></span></button>
 
 
@@ -38,8 +37,6 @@
                           <div class="modal-header">
                             <h4 class="modal-title text-left" id="editModalLabel">Update Entry</h4> 
                             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                            <!-- <h4 class="modal-title text-left" id="editModalLabel">Update Entry</h4>  -->
-                            
                           </div>
                           <div class="modal-body">
                             <form role="form">

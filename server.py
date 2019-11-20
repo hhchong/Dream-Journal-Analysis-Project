@@ -317,10 +317,23 @@ def delete_entry():
 
     return jsonify({'status' : 'deleted'})
 
-@app.route('/edit_entry', methods=['POST'])
-def edit_entry():
-    """edit text entry and save to database"""
-    user_id = session['current_user_id']
+@app.route('/populate_modal', methods=['POST'])
+def populate_modal():
+
+    entry_id = request.form.get('entry_id')
+
+    entry = Entry.query.get(entry_id)
+
+    populate_modal_dict= {'title' : entry.title,
+                            'text' : entry.text_content}
+
+    return json.dumps(populate_modal_dict)
+
+
+# @app.route('/edit_entry', methods=['POST'])
+# def edit_entry():
+#     """edit text entry and save to database"""
+#     user_id = session['current_user_id']
 
 
 
