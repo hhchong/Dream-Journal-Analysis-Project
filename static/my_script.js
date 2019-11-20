@@ -2,25 +2,15 @@
 
 //Delete entry
 
-function deleteEntry() {
+$('.delete-entry').click(function(){
+
     const entry_id = $(this).data('entry-id');
 
-    $.post('/delete_entry', {'entry_id': entry_id}, function(result) {
+    $.post('/delete_entry', {'entry_id' : entry_id}, (res) => {
             $(this).parent().parent().hide();
     });
-}
 
-$('.delete-entry').click(deleteEntry);
-// $('.delete-entry').on('click', (evt) => {
-//     evt.preventDefault();
-
-//     const entry_id = $(this).data('entry-id');
-
-//     $.post('/delete_entry', {'entry_id' : entry_id}, (res) => {
-//             $(this).parent().parent().hide();
-//     });
-
-// });
+});
 
 
 
