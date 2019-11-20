@@ -15,21 +15,21 @@
 {% block content %}
 
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-6 offset-md-3">
     <div class="panel-body">
       <ul class="list-group">
         {% for entry in entries %}
-        <li>
+        <li class="list-group-item">
         
-          <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}" class="list-group-item">
+            <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">
             <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ entry.title }}</h5>
-              <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
+              <h5 class="mb-1">{{ entry.title }}</h5></a>
+               <button class="btn delete-entry" data-entry-id="{{ entry.entry_id }}"><span class="far fa-trash-alt" onclick="deleteEntry()"></span></button>
             </div>
-          </a>
+              <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
 
             
-          </li>
+        </li>
           {% endfor %}
         
       </ul>

@@ -1,3 +1,30 @@
+
+
+//Delete entry
+
+function deleteEntry() {
+    const entry_id = $(this).data('entry-id');
+
+    $.post('/delete_entry', {'entry_id': entry_id}, function(result) {
+            $(this).parent().parent().hide();
+    });
+}
+
+$('.delete-entry').click(deleteEntry);
+// $('.delete-entry').on('click', (evt) => {
+//     evt.preventDefault();
+
+//     const entry_id = $(this).data('entry-id');
+
+//     $.post('/delete_entry', {'entry_id' : entry_id}, (res) => {
+//             $(this).parent().parent().hide();
+//     });
+
+// });
+
+
+
+
 // CHARTS
 
 var emotionsOptions = {
@@ -78,7 +105,7 @@ var moodOptions = {
         }
     };
 
-    var ctx_emotion_donut = $("#emotionsChart").get(0).getContext("2d");
+    let ctx_emotion_donut = $("#emotionsChart").get(0).getContext("2d");
     let ctx_character_donut = $("#charactersChart").get(0).getContext("2d");
     let ctx_theme_donut = $("#themesChart").get(0).getContext("2d");
     let ctx_setting_donut = $("#settingsChart").get(0).getContext("2d");

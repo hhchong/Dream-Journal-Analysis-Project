@@ -127,8 +127,7 @@ def logout():
 def show_index():
     logged_user = session['current_user_id']
     entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
-    for entry in entries:
-        print(entry.title, entry.text_content)
+
     return render_template("/index.html",
                             entries=entries)
 
@@ -300,9 +299,27 @@ def search_term():
 
     return render_template('search.html', entries=entries)
 
+@app.route('/delete_entry', methods=['POST'])
+def delete_entry():
+    """delete entry from database"""
 
+    
 
-#ilike query to search through text content
+    entry_id = request.form.get('entry_id')
+
+    entry = Entry.query.filter(Entry.entry_id == entry_id).delete()
+    #on cascade delete model.py
+    
+
+    db.session.commit()
+
+    return jsonify({'status' : 'deleted'})
+
+# @app.route('/edit_entry', methods=['POST'])
+# def edit_entry():
+#     """edit text entry and save to database"""
+#     user_id = session['current_user_id']
+
 
 #JSONIFY STUFF....FOR CHARTS
 @app.route('/charts')
@@ -310,6 +327,8 @@ def show_charts():
     """Show page with charts"""
 
     user_id = session['current_user_id']
+    new_title = request.form['title']
+
 
     return render_template('charts.html')
 

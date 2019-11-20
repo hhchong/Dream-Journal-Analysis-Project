@@ -72,6 +72,16 @@ class Entry(db.Model):
                                secondary="entries_settings",
                                backref="entries")
 
+    def delete(self):
+        for emotion in self.emotions:
+            db.session.delete(emotion)
+        for character in self.characters:
+            db.session.delete(character)
+        for theme in self.themes:
+            db.session.delete(theme)
+        for setting in self.settings:
+            db.session.delete(setting)
+
     def __repr__(self):
 
         return f"<Entry entry_id={self.entry_id} user_id={self.user_id} date={self.date} text_content={self.text_content} title={self.title} hours_slept={self.hours_slept} mood_awake={self.mood_awake} clarity={self.clarity} lucidity={self.lucidity} lucid_intent={self.lucid_intent}>"
