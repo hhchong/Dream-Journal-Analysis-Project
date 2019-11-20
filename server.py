@@ -307,10 +307,14 @@ def delete_entry():
 
     entry_id = request.form.get('entry_id')
 
-    entry = Entry.query.filter(Entry.entry_id == entry_id).delete()
-    #on cascade delete model.py
-    
+    entry = Entry.query.get(entry_id)
 
+    entry.emotions.clear()
+    entry.characters.clear()
+    entry.themes.clear()
+    entry.settings.clear()
+
+    db.session.delete(entry)
     db.session.commit()
 
     return jsonify({'status' : 'deleted'})

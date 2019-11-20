@@ -3,6 +3,8 @@
 
 
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship, backref
+
 
 db = SQLAlchemy()
 
@@ -72,15 +74,15 @@ class Entry(db.Model):
                                secondary="entries_settings",
                                backref="entries")
 
-    def delete(self):
-        for emotion in self.emotions:
-            db.session.delete(emotion)
-        for character in self.characters:
-            db.session.delete(character)
-        for theme in self.themes:
-            db.session.delete(theme)
-        for setting in self.settings:
-            db.session.delete(setting)
+    # def delete(self):
+    #     for emotion in self.emotions:
+    #         db.session.delete(EntryEmotion(self.entry_id))
+    #     for character in self.characters:
+    #         db.session.delete(EntryCharacter(self.entry_id))
+    #     for theme in self.themes:
+    #         db.session.delete(EntryTheme(self.entry_id))
+    #     for setting in self.settings:
+    #         db.session.delete(EntrySetting(self.entry_id))
 
     def __repr__(self):
 
@@ -94,6 +96,8 @@ class Emotion(db.Model):
 
     emotion_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     emotion = db.Column(db.String(64))
+
+   
 
     # @classmethod
     # def get_emotion(cls, emotion_name):
@@ -113,6 +117,7 @@ class EntryEmotion(db.Model):
     ent_emo_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     entry_id = db.Column(db.Integer, db.ForeignKey('entries.entry_id'))
     emotion_id = db.Column(db.Integer, db.ForeignKey('emotions.emotion_id'))
+
 
     #Define reltionships to entries table and emotions table
 
