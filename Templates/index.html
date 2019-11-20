@@ -24,8 +24,14 @@
             <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ entry.title }}</h5></a>
-               <button class="btn delete-entry" data-entry-id="{{ entry.entry_id }}"><span class="far fa-trash-alt"></span></button>
-            </div>
+               <!-- <button class="btn delete-entry" data-entry-id="{{ entry.entry_id }}"><span class="far fa-trash-alt"></span></button> -->
+               <div class="pull-right">
+               <button class="btn edit-entry" data-toggle="modal"
+                data-target="#editModal" data-entry-id="{{ entry.entry_id }}"><span class="fas fa-pencil-alt"></span></button>
+                <button class="btn delete-entry" data-entry-id="{{ entry.entry_id }}"><span class="far fa-trash-alt"></span></button>
+              </div>
+
+              </div>
               <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
 
             

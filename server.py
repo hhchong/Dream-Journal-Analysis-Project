@@ -303,8 +303,6 @@ def search_term():
 def delete_entry():
     """delete entry from database"""
 
-    
-
     entry_id = request.form.get('entry_id')
 
     entry = Entry.query.get(entry_id)
@@ -319,10 +317,11 @@ def delete_entry():
 
     return jsonify({'status' : 'deleted'})
 
-# @app.route('/edit_entry', methods=['POST'])
-# def edit_entry():
-#     """edit text entry and save to database"""
-#     user_id = session['current_user_id']
+@app.route('/edit_entry', methods=['POST'])
+def edit_entry():
+    """edit text entry and save to database"""
+    user_id = session['current_user_id']
+
 
 
 #JSONIFY STUFF....FOR CHARTS
@@ -331,8 +330,6 @@ def show_charts():
     """Show page with charts"""
 
     user_id = session['current_user_id']
-    new_title = request.form['title']
-
 
     return render_template('charts.html')
 

@@ -7,7 +7,7 @@ $('.delete-entry').click(function(){
     const entry_id = $(this).data('entry-id');
 
     $.post('/delete_entry', {'entry_id' : entry_id}, (res) => {
-            $(this).parent().parent().hide();
+            $(this).parent().parent().parent().hide();
     });
 
 });
