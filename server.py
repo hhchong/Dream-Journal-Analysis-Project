@@ -131,6 +131,15 @@ def show_index():
     return render_template("/index.html",
                             entries=entries)
 
+@app.route('/getPostTitle/<post_id>')
+def get_post_by_id(post_id):
+
+    search_entry = Entry.query.get(post_id)
+
+    data = {'title' : search_entry.title}
+
+    return jsonify(data)
+
 
 
 """journal page w all entries (with every detail).. profile style, eventually infinite scroll"""
@@ -319,6 +328,8 @@ def delete_entry():
 
 @app.route('/populate_modal', methods=['POST'])
 def populate_modal():
+    """populate edit modal with original entry info"""
+    #figure out how to add tags to this.... checkboxes
 
     entry_id = request.form.get('entry_id')
 
@@ -330,10 +341,22 @@ def populate_modal():
     return json.dumps(populate_modal_dict)
 
 
-# @app.route('/edit_entry', methods=['POST'])
-# def edit_entry():
-#     """edit text entry and save to database"""
-#     user_id = session['current_user_id']
+@app.route('/edit_entry', methods=['POST'])
+def edit_entry():
+    """edit text entry and save to database"""
+
+    entry_id = request.form.get('entry_id')
+
+    entry = Entry.query.get(entry_id)
+
+    new_title = request.form["title"]
+    new_text = request.form["text"]
+
+    entry.title = new_title
+    entry.text_content = new_text
+
+    db.session.commit()
+    return jsonify({'status' : 'yay'})
 
 
 

@@ -12,67 +12,78 @@
 {% endwith %}
 
 {% block content_title %} Blog entries {% endblock %}
-{% block content %}
 
+{% block content %}
 <div class="row">
   <div class="col-md-6 offset-md-3">
-    <div class="panel-body">
-      <ul class="list-group">
-
-        {% for entry in entries %}
+    <ul id="ulist" class="list-group">
+      {% for entry in entries %}
         <li class="list-group-item">
-        
-            <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ entry.title }}</h5></a>
 
-               <div class="pull-right">
-               <button class="btn edit-entry" data-entry-id="{{ entry.entry_id }}"><span class="fas fa-pencil-alt"></span></button>
-                <button class="btn delete-entry" data-entry-id="{{ entry.entry_id }}"><span class="far fa-trash-alt"></span></button>
+          <div class="d-flex w-100 justify-content-between align-items-center">
+            <h5 class="mb-1 post-title">
+              <a id="entry-{{ entry.entry_id}}" href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">
+                {{ entry.title }}
+              </a>
+            </h5>
 
+            <div class="pull-right">
+              <button
+                class="btn edit-entry"
+                data-toggle="modal"
+                data-target="#modal-{{ entry.entry_id}}"
+                data-entry-id="{{ entry.entry_id }}"
+              >
+                <span class="fas fa-pencil-alt"></span>
+              </button>
+              <button class="btn delete-entry" data-entry-id="{{ entry.entry_id }}">
+                <span class="far fa-trash-alt"></span>
+              </button>
+            </div>
+          </div>
 
-                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 class="modal-title text-left" id="editModalLabel">Update Entry</h4> 
-                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                          </div>
-                          <div class="modal-body">
-                            <form role="form">
-                              <div class="form-group">
-                                <label for="recipient-name" class="control-label">Title:</label>
-                                <input type="text" class="form-control" id="editTitle">
-                              </div>
-                              <div class="form-group">
-                                <label for="message-text" class="control-label">Text Content:</label>
-                                <textarea class="form-control" id="editDescription"></textarea>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button id="btnUpdate" type="button" class="btn btn-primary">Update</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-              </div>
-
-              </div>
-              <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
-
-            
+          <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
         </li>
-          {% endfor %}
-        
-      </ul>
+      {% endfor %}
+    </ul>              
+  </div>
+</div>
+
+{% for entry in entries %}
+  <div
+    class="modal fade entryModal"
+    id="modal-{{ entry.entry_id }}"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="editModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-left" id="editModalLabel">Update Entry</h4> 
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        </div>
+        <div class="modal-body">
+          <form role="form">
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Title:</label>
+              <input type="text" class="form-control" name="title" id="editTitle" value="{{ entry.title }}">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="control-label">Text Content:</label>
+              <textarea class="form-control" name = "text" id="editDescription">
+                {{ entry.text_content }}
+              </textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary btnUpdate" data-entry-id="{{ entry.entry_id }}">Update</button>
+        </div>
+      </div>
     </div>
   </div>
-
-</div>
-  
-
-
+{% endfor %}
 {% endblock %}

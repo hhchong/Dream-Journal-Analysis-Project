@@ -12,21 +12,63 @@ $('.delete-entry').click(function(){
 
 });
 
-$('.edit-entry').click(function(){
+//edit entry
 
-    const entry_id = $(this).data('entry-id');
+//click, open modal window, populate entry modal
 
-    $.post('/populate_modal', {'entry_id' : entry_id}, (res) => {
+// $('.edit-entry').click(function(evt){
+//     evt.preventDefault()
 
-        let data = JSON.parse(res);
+//     const entry_id = $(this).data('entry-id');
 
-        $('#editTitle').val(data['title']);
-        $('#editDescription').val(data['text']);
+//     $.post('/populate_modal', {'entry_id' : entry_id}, (res) => {
 
-        $('#editModal').modal();
+//         let data = JSON.parse(res);
 
+//         $('#editTitle').val(data['title']);
+//         $('#editDescription').val(data['text']);
+
+//         $('#editModal').modal();
+
+//     });
+// });
+
+//upon click, send new material to db, close window, show updated entry
+
+
+$('.btnUpdate').click((evt) => {
+    evt.preventDefault();
+
+    const entry_id = $(evt.target).data('entry-id');
+    const newTitle = $(`#modal-${entry_id} input[name="title"]`).val();
+    const newText = $(`#modal-${entry_id} textarea[name="text"]`).val();
+
+    const data = {
+        title: newTitle,
+        text: newText,
+        entry_id: entry_id
+    };
+
+    $.post('/edit_entry', data, (res) => {
+        //after closing modal, show index with updated title (if updated)
+        $(`#modal-${entry_id}`).modal("hide");
+        // getStuff($(this).data('entry-id'));
     });
 });
+
+$('.entryModal').on('hidden.bs.modal', (evt) => {
+    console.log('hi');
+    const modalId = $(evt.target).attr('id');
+
+    const entryId = modalId.split('-')[1];
+
+    $.get(`/getPostTitle/${entryId}`, (data) => {
+        let text = data['title'];
+        $(`#entry-${entryId}`).html(text);
+    });
+});
+
+
 
 
 
