@@ -133,6 +133,7 @@ def show_index():
 
 @app.route('/getPostTitle/<post_id>')
 def get_post_by_id(post_id):
+    """get the new title that'll show up when updated"""
 
     search_entry = Entry.query.get(post_id)
 
@@ -358,6 +359,25 @@ def edit_entry():
     db.session.commit()
     return jsonify({'status' : 'yay'})
 
+@app.route('/calendar.json')
+def show_calendar_entries():
+    """render entries on calendar"""
+
+    # user_id = session['current_user_id']
+    # user = User.query.get(user_id)
+    user = User.query.get(1)
+
+    year = []
+    month = []
+    day = []
+
+    for entry in user.entries:
+        date = (str(entry.date)).split("-")
+        year.append(date[0])
+        month.append(date[1])
+        day.append(date[2])
+    
+    data = {}
 
 
 #JSONIFY STUFF....FOR CHARTS
