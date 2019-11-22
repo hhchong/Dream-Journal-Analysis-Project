@@ -28,10 +28,23 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
+        // var calendar = new FullCalendar.Calendar(calendarEl, {
+        //   plugins: [ 'dayGrid' ]
+        // });
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          plugins: [ 'dayGrid' ]
-        });
+          plugins: [ 'dayGrid' ],
+          events : '/calendar.json',
 
+        eventClick: function(info) {
+          if (info.url) {
+      //if you want to open url in the same tab
+          location.href = "/index";
+      //if you want to open url in another window / tab, use the commented code below
+      //window.open(event.url);
+          return false;
+          }
+        }
+      });
         calendar.render();
       });
 

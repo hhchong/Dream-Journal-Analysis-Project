@@ -367,18 +367,30 @@ def show_calendar_entries():
     # user = User.query.get(user_id)
     user = User.query.get(1)
 
-    year = []
-    month = []
-    day = []
+    # year = []
+    # month = []
+    # day = []
+    dates = []
+    titles = []
+    links = []
+    event = {}
+    events = []
 
     for entry in user.entries:
-        date = (str(entry.date)).split("-")
-        year.append(date[0])
-        month.append(date[1])
-        day.append(date[2])
+        date = str(entry.date)[:10]
+        dates.append(date)
+        title = str(entry.title)
+        titles.append(title)
+        link = "/entry_details/" + str(entry.entry_id) 
+        links.append(link)
+        
+    for i in range(0, len(dates)):
+         event['title'] = titles[i]
+         event['start'] = dates[i]
+         event['url'] = links[i]
+         events.append(event.copy())
     
-    data = {}
-
+    return jsonify(events)
 
 #JSONIFY STUFF....FOR CHARTS
 @app.route('/charts')

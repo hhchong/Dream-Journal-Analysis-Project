@@ -1,3 +1,35 @@
+//populate calendar
+
+
+// $('#calendar').fullCalendar({
+
+//   event: '/calendar.json',
+
+//   eventClick: function(event) {
+//     if (event.url) {
+//       //if you want to open url in the same tab
+//       location.href = "/index";
+//       //if you want to open url in another window / tab, use the commented code below
+//       //window.open(event.url);
+//       return false;
+//     }
+//   }
+// });
+
+// var calendar = new Calendar(calendarEl, {
+//     eventSources: '/calendar.json'
+
+//     eventClick: function(event) {
+//     if (event.url) {
+//       //if you want to open url in the same tab
+//       location.href = "/index";
+//       //if you want to open url in another window / tab, use the commented code below
+//       //window.open(event.url);
+//       return false;
+//     }
+//   }
+// });
+
 
 
 //Delete entry
