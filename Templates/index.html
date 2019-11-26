@@ -33,7 +33,9 @@
         // });
         var calendar = new FullCalendar.Calendar(calendarEl, {
           plugins: [ 'dayGrid' ],
-          events : '/calendar.json',
+          eventSources : ['/calendar.json', '/lucid.json'],
+          eventOrder: "sort",
+
 
         eventClick: function(info) {
           if (info.url) {

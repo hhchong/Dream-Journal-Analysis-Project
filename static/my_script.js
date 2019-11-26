@@ -89,7 +89,6 @@ $('.btnUpdate').click((evt) => {
 });
 
 $('.entryModal').on('hidden.bs.modal', (evt) => {
-    console.log('hi');
     const modalId = $(evt.target).attr('id');
 
     const entryId = modalId.split('-')[1];

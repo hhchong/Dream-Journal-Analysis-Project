@@ -359,6 +359,38 @@ def edit_entry():
     db.session.commit()
     return jsonify({'status' : 'yay'})
 
+@app.route('/lucid.json')
+def show_lucidity():
+    """render lucid tag on calendar"""
+
+    # user_id = session['current_user_id']
+    # user = User.query.get(user_id)
+
+    user = User.query.get(1)
+
+    dates = []
+    lucidity = []
+    lucid = {}
+    lucid_data = []
+
+    for entry in user.entries:
+        if int(entry.lucidity) >= 3:
+            lucidity.append('lucid')
+            date = str(entry.date)[:10]
+            dates.append(date)
+            
+
+    for i in range(0, len(dates)):
+        lucid['title'] = lucidity[i]
+        lucid['start'] = dates[i]
+        lucid['sort'] = '1'
+        
+
+        lucid_data.append(lucid.copy())
+    print(lucid_data)
+
+    return jsonify(lucid_data)
+
 @app.route('/calendar.json')
 def show_calendar_entries():
     """render entries on calendar"""
@@ -367,12 +399,11 @@ def show_calendar_entries():
     # user = User.query.get(user_id)
     user = User.query.get(1)
 
-    # year = []
-    # month = []
-    # day = []
+
     dates = []
     titles = []
     links = []
+    # lucids = []
     event = {}
     events = []
 
@@ -383,11 +414,18 @@ def show_calendar_entries():
         titles.append(title)
         link = "/entry_details/" + str(entry.entry_id) 
         links.append(link)
+
+        # if int(entry.lucidity) >= 3:
+        #     lucids.append('')
+
+
         
     for i in range(0, len(dates)):
          event['title'] = titles[i]
          event['start'] = dates[i]
          event['url'] = links[i]
+         event['sort'] = '-1'
+         #if 
          events.append(event.copy())
     
     return jsonify(events)
