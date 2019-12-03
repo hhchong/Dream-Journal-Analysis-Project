@@ -83,11 +83,11 @@
           <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
           <small> Lucidity: </small>
           {% for i in range(5) %}
-          <small><span class="{% if i <= entry.lucidity %} fas fa-star {% else %} far fa-star {% endif %}"></span></small>
+          <small><span class="{% if i <= entry.lucidity %} fas fa-star icon-a{% else %} far fa-star icon-b{% endif %} "></span></small>
           {% endfor %}
           <small> Clarity: </small>
           {% for i in range(5) %}
-          <small><span class="{% if i <= entry.clarity %} fas fa-star {% else %} far fa-star {% endif %}"></span></small>
+          <small><span class="{% if i <= entry.clarity %} fas fa-star icon-c{% else %} far fa-star icon-d{% endif %}"></span></small>
           {% endfor %}
 
         </li>
