@@ -30,7 +30,8 @@
 //   }
 // });
 
-
+//stars
+// function showRating(ratings)
 
 //Delete entry
 
@@ -44,29 +45,18 @@ $('.delete-entry').click(function(){
 
 });
 
-//edit entry
-
-//click, open modal window, populate entry modal
-
-// $('.edit-entry').click(function(evt){
-//     evt.preventDefault()
-
-//     const entry_id = $(this).data('entry-id');
-
-//     $.post('/populate_modal', {'entry_id' : entry_id}, (res) => {
-
-//         let data = JSON.parse(res);
-
-//         $('#editTitle').val(data['title']);
-//         $('#editDescription').val(data['text']);
-
-//         $('#editModal').modal();
-
-//     });
-// });
 
 //upon click, send new material to db, close window, show updated entry
-
+//TEST THIS FOR DELETING ENTRIES AFTER YOU FINISH THE OTHER CARDS
+// $('.delete-entry').on('click', (evt) => {
+//   evt.preventDefault();
+//   $.get('/stats', get_stats => {
+//     $('#total').html("<h3>" + get_stats.total_entries + "</h3>");
+//   });
+// });
+$.get('/stats', get_stats => {
+    $('#total').html("<h3>" + get_stats.total_entries + "</h3>");
+  });
 
 $('.btnUpdate').click((evt) => {
     evt.preventDefault();
@@ -98,6 +88,8 @@ $('.entryModal').on('hidden.bs.modal', (evt) => {
         $(`#entry-${entryId}`).html(text);
     });
 });
+
+
 
 
 
