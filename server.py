@@ -13,6 +13,8 @@ from collections import Counter
 
 from playhouse.sqlite_ext import *
 
+from twilio.rest import Client
+
 
 app = Flask(__name__)
 
@@ -26,7 +28,7 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def index():
     """Homepage."""
-    return render_template("homepage.html")
+    return render_template("homepage.html", logged=False)
 
 
 @ app.route("/register", methods=['GET'])
@@ -94,7 +96,8 @@ def login_form():
     password = request.args.get("password")
     return render_template("login_form.html",
                             username=username,
-                            password=password)
+                            password=password,
+                            logged=False)
 
 @app.route("/login", methods=['POST'])
 def handle_login():
@@ -109,7 +112,7 @@ def handle_login():
         session['current_user_id'] = q.user_id
         flash("Logged in")
         #work on flash
-        return redirect("/journal")
+        return redirect("/index")
 
     else:
         flash("Log in Failed")
@@ -129,7 +132,8 @@ def show_index():
     entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
 
     return render_template("/index.html",
-                            entries=entries)
+                            entries=entries,
+                            logged=True)
 
 @app.route('/getPostTitle/<post_id>')
 def get_post_by_id(post_id):
@@ -162,7 +166,8 @@ def show_journal():
     # then loop over entries in journal.html with jinja to show all entries! 
      
     return render_template("journal.html",
-                            entries=entries)
+                            entries=entries,
+                            logged=True)
 
 
 
@@ -199,7 +204,8 @@ def show_entryform():
                                 emotions=emotions,
                                 characters=characters,
                                 themes=themes,
-                                settings=settings)
+                                settings=settings,
+                                logged=True)
 
 @app.route("/entryform", methods=['POST'])
 def process_entryform():
@@ -293,7 +299,8 @@ def show_entry_details(entry_id):
 
     return render_template("entry_details.html",
                             entry_id=entry_id,
-                            entry=entry)
+                            entry=entry,
+                            logged=True)
 
 @app.route('/search', methods=['GET'])
 def search_term():
@@ -306,8 +313,10 @@ def search_term():
   
     if phrase:
          entries = Entry.query.filter(Entry.user_id == user_id, Entry.text_content.ilike(f'%{phrase}%')).all()
+    else:
+         entries = Entry.query.filter(Entry.user_id == user_id).order_by(Entry.date.desc()).all()
 
-    return render_template('search.html', entries=entries)
+    return render_template('search.html', entries=entries, logged=True)
 
 @app.route('/delete_entry', methods=['POST'])
 def delete_entry():
@@ -437,7 +446,7 @@ def show_charts():
 
     user_id = session['current_user_id']
 
-    return render_template('charts.html')
+    return render_template('charts.html', logged=True)
 
 
 @app.route('/emotions_data.json')
