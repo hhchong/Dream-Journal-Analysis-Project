@@ -135,6 +135,14 @@ def show_index():
                             entries=entries,
                             logged=True)
 
+# @app.route('/get_ratings')
+# def get_all_ratings():
+#     """gets lucidity, lucid intent, mood and passes to JS callback"""
+    
+#     ratings = { 'lucidity':,
+#                 'lucid_intent':,
+#                 }
+
 @app.route('/getPostTitle/<post_id>')
 def get_post_by_id(post_id):
     """get the new title that'll show up when updated"""
@@ -152,18 +160,10 @@ def get_post_by_id(post_id):
 def show_journal():
 
     logged_user = session['current_user_id']
-    
 
 
     entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
 
-
-    # get session object of user with user user_id
-  
-
-    # then relationship it with entries like User.entries
-
-    # then loop over entries in journal.html with jinja to show all entries! 
      
     return render_template("journal.html",
                             entries=entries,
@@ -281,12 +281,6 @@ def process_entryform():
 
     #create its own entry details page
     return redirect("/index")
-
-
-"""edit entry"""
-
-
-
 
 
 

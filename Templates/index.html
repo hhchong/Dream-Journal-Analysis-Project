@@ -81,6 +81,15 @@
           </div>
 
           <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
+          <small> Lucidity: </small>
+          {% for i in range(5) %}
+          <small><span class="{% if i <= entry.lucidity %} fas fa-star {% else %} far fa-star {% endif %}"></span></small>
+          {% endfor %}
+          <small> Clarity: </small>
+          {% for i in range(5) %}
+          <small><span class="{% if i <= entry.clarity %} fas fa-star {% else %} far fa-star {% endif %}"></span></small>
+          {% endfor %}
+
         </li>
       {% endfor %}
     </ul>              
