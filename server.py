@@ -15,6 +15,10 @@ from playhouse.sqlite_ext import *
 
 from twilio.rest import Client
 
+from datetime import datetime, timedelta
+
+from sqlalchemy import and_
+
 
 app = Flask(__name__)
 
@@ -135,13 +139,56 @@ def show_index():
                             entries=entries,
                             logged=True)
 
-# @app.route('/get_ratings')
-# def get_all_ratings():
-#     """gets lucidity, lucid intent, mood and passes to JS callback"""
+@app.route('/stats')
+def get_stats():
+    """get stats for stat cards in index"""
+
+    # user_id = session['current_user_id']
+    user = User.query.get(1)
     
-#     ratings = { 'lucidity':,
-#                 'lucid_intent':,
-#                 }
+    thirty_days_ago = datetime.today() - timedelta(days = 30)
+    one_week_ago = datetime.today() - timedelta(days = 7)
+    previous_week = one_week_ago - timedelta(days = 7)
+
+    lucid_month = Entry.query.filter(Entry.user_id == user.user_id, Entry.date >= thirty_days_ago, Entry.lucidity >= 3).all()
+    week_sleep = Entry.query.filter(Entry.user_id == user.user_id, Entry.date >= one_week_ago).all()
+    prev_week_sleep = Entry.query.filter(Entry.user_id == user.user_id, Entry.date < one_week_ago, Entry.date >= previous_week).all()
+
+    total_entries = 0
+    sleep_percent = 0
+    total_lucid_month = 0
+    total = 0
+    prev_total = 0
+    lucid_percent = 0
+
+    for entry in user.entries:
+        total_entries += 1
+
+    for lucid in lucid_month:
+        total_lucid_month += 1
+
+    for sleep in week_sleep:
+        total += sleep.hours_slept
+        average_sleep = total/len(week_sleep)
+    
+    for s in prev_week_sleep:
+        prev_total += s.hours_slept
+        prev_average_sleep = prev_total/len(prev_week_sleep)
+
+    if average_sleep > prev_average_sleep:
+        percent = str((average_sleep - prev_average_sleep)*100)
+        change = "UP " + percent + "% from last week"
+
+    elif average_sleep == prev_average_sleep:
+        change = "Same average sleep as last week"
+    else:
+        percent = str((prev_average_sleep - average_sleep)*100)
+        change = "DOWN " + percent + "% from last week"
+
+    return jsonify({"total_entries" : total_entries,
+                    "total_lucid_month" : total_lucid_month,
+                    "average_sleep" : average_sleep,
+                    "change" : change})
 
 @app.route('/getPostTitle/<post_id>')
 def get_post_by_id(post_id):
@@ -361,6 +408,7 @@ def edit_entry():
 
     db.session.commit()
     return jsonify({'status' : 'yay'})
+
 
 @app.route('/lucid.json')
 def show_lucidity():
