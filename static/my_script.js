@@ -42,6 +42,11 @@ $('.delete-entry').click(function(){
     $.post('/delete_entry', {'entry_id' : entry_id}, (res) => {
             $(this).parent().parent().parent().hide();
     });
+    $.get('/stats', get_stats => {
+    $('#total').html("<h3>" + get_stats.total_entries + "</h3>");
+    $('#hours').html("<h3>" + get_stats.average_sleep + "</h3>");
+    $('#lucid').html("<h3>" + get_stats.total_lucid_month + "</h3>");
+  });
 
 });
 
