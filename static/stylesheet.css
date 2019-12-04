@@ -1,6 +1,11 @@
 
 //star styling
-
+.statsrow {
+    margin-right:-15px;
+}
+.statstext #total {
+    font-size:50px !important;
+}
 .icon-a {
     color: yellow;
     -webkit-text-stroke-width: 1px;

@@ -56,6 +56,8 @@ $('.delete-entry').click(function(){
 // });
 $.get('/stats', get_stats => {
     $('#total').html("<h3>" + get_stats.total_entries + "</h3>");
+    $('#hours').html("<h3>" + get_stats.average_sleep + "</h3>");
+    $('#lucid').html("<h3>" + get_stats.total_lucid_month + "</h3>");
   });
 
 $('.btnUpdate').click((evt) => {
