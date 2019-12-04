@@ -34,6 +34,28 @@
 // function showRating(ratings)
 
 //Delete entry
+$('#toggle-btn').on('click', function (e) {
+
+        e.preventDefault();
+
+        if ($(window).outerWidth() > 1194) {
+            $('nav.side-navbar').toggleClass('shrink');
+            $('.page').toggleClass('active');
+        } else {
+            $('nav.side-navbar').toggleClass('show-sm');
+            $('.page').toggleClass('active-sm');
+        }
+    });
+// $(document).ready(function () {
+
+//     $('#sidebarCollapse').on('click', function () {
+//         $('#sidebar').toggleClass('active');
+//     });
+
+// });
+
+
+
 
 $('.delete-entry').click(function(){
 

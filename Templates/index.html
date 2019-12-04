@@ -11,7 +11,7 @@
   {% endif %}
 {% endwith %}
 
-{% block content_title %} Blog entries {% endblock %}
+<!-- {% block content_title %} Blog entries {% endblock %} -->
 
 {% block content %}
   <head>
@@ -22,8 +22,8 @@
 
     <script src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js'></script>
     <script src='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.js'></script>
-
     <script type="text/javascript">
+
 
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -32,6 +32,8 @@
         //   plugins: [ 'dayGrid' ]
         // });
         var calendar = new FullCalendar.Calendar(calendarEl, {
+          aspectRatio: 1.5,
+          fixedWeekCount: false,
           plugins: [ 'dayGrid' ],
           eventSources : ['/calendar.json', '/lucid.json'],
           eventOrder: "sort",
@@ -52,7 +54,158 @@
 
     </script>
   </head>
-<div class="content-wrapper">
+
+
+<!-- Side Navbar -->
+    <nav class="side-navbar">
+      <div class="side-navbar-wrapper">
+        <!-- Sidebar Header    -->
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+          <!-- User Info-->
+          <div class="sidenav-header-inner text-center"><img src="img/avatar-7.jpg" alt="person" class="img-fluid rounded-circle">
+            <h2 class="h5">Name</h2><span>Dream Journal</span>
+          </div>
+          <!-- Small Brand information, appears on minimized sidebar-->
+          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+        </div>
+        <div class="main-menu">
+          <h5 class="sidenav-heading">Main</h5>
+          <ul id="side-main-menu" class="side-menu list-unstyled">                  
+            <li><a href="/index"> <i class="icon-home"></i>Home                             </a></li>
+            <li><a href="/journal"> <i class="icon-form"></i>Journal                            </a></li>
+            <li><a href="/entryform"> <i class="icon-grid"></i>New Entry                             </a></li>
+            <li><a href="/charts"> <i class="fa fa-bar-chart"></i>Analysis                             </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="page">
+      <!-- navbar -->
+      <header class="header">
+        <nav class="navbar fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between fixed-top">
+              <div class="navbar-header">
+                <a id="toggle-btn" href="#" class="menu-btn"><i class="fas fa-bars"> </i></a>
+                <!-- <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Sidebar</span>
+                </button> -->
+
+                <a href="index.html" class="navbar-brand">
+                  <div class="brand-text d-none d-md-inline-block"><strong class="text-primary">Dreambase</strong></div></a></div>
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <li class="nav-item"><a href="/logout" class="nav-link logout"> <span class="d-none d-sm-inline-block">Logout</span><i class="fa fa-sign-out"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <!-- stats section -->
+      <section class="dashboard-counts section-padding">
+        <div class="container-fluid">
+          <div class="row statsrow">
+  <div class="col-xl-4 col-lg-6 col-12">
+     <div class="card cardStat">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="media d-flex">
+            <div class="media-body text-left statstext">
+              <h3 id="total" ></h3>
+              <span>Total Entries</span>
+            </div>
+              <div class="align-self-center">
+              <img src="static/total.png" width="70" height="70">
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-12">
+     <div class="card cardStat">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="media d-flex">
+            <div class="media-body text-left statstext">
+              <h3 id="hours" ></h3>
+              <span>Average Hours Slept Past Week</span>
+            </div>
+            <div class="align-self-center">
+           
+              <img src="static/cloud.png" width="70" height="70">
+                  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-12">
+     <div class="card cardStat">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="media d-flex">
+            <div class="media-body text-left statstext">
+              <h3 id="lucid" ></h3>
+              <span>Lucid Occurences This Month</span>
+            </div>
+            <div class="align-self-center">
+           
+              <img src="static/peace-of-mind.png" width="70" height="70">
+                  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+ <!-- <div class="wrapper">
+
+    <nav id="sidebar">
+      <div class="sidebar-header">
+            <h3>DreamBase</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <p>Welcome</p>
+        
+          <li>
+            <a href="/index">Home</a>
+          </li>
+          <li>
+            <a href="/journal">Journal</a>
+          </li>
+          <li>
+            <a href="/entryform">Create Entry</a>
+          </li>
+          <li>
+            <a href="/charts">Analysis</a>
+          </li>
+
+        </ul>
+    </nav> 
+ </div>  
+<div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Sidebar</span>
+                </button>
+            </div>
+        </nav>
+    </div>
+
+
+ -->
+
+<!-- <div class="content-wrapper">
 <div class="content-body">
 <div class="row statsrow">
   <div class="col-xl-4 col-lg-6 col-12">
@@ -111,10 +264,9 @@
 
 </div>
 </div>
-</div>
+</div> -->
 
 
-<div class="row">
   <div class="col-md-6 offset-md-3">
     <ul id="ulist" class="list-group">
       {% for entry in entries %}
@@ -156,7 +308,8 @@
       {% endfor %}
     </ul>              
   </div>
-</div>
+  <div id='calendar'></div>
+
 <div id='calendar'></div>
 
 {% for entry in entries %}
@@ -195,5 +348,7 @@
       </div>
     </div>
   </div>
+
+</body>
 {% endfor %}
 {% endblock %}
