@@ -211,7 +211,7 @@ section header {
 */
 nav.navbar {
   background: #393836;
-  padding: 1.2rem 0;
+  padding: 1.4rem 0;
 
   /* Navbar Brand --------- */
   /*  Dropdowns ------------ */
@@ -274,47 +274,7 @@ nav.navbar .nav-menu {
   margin-bottom: 0;
 }
 
-nav.navbar .dropdown-toggle::after {
-  border: none !important;
-  content: '\f107';
-  vertical-align: baseline;
-  font-family: 'FontAwesome';
-  margin-left: .3rem;
-}
 
-nav.navbar .dropdown-menu {
-  right: 0;
-  left: auto;
-  float: left;
-  margin-top: 16px;
-  margin-bottom: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  font-size: 1rem;
-  padding: 1rem;
-}
-
-nav.navbar .dropdown-menu .dropdown-item {
-  color: #666;
-  padding: 10px;
-}
-
-nav.navbar .dropdown-menu .dropdown-item:active {
-  color: #fff;
-}
-
-nav.navbar .dropdown-menu .dropdown-item:active span,
-nav.navbar .dropdown-menu .dropdown-item:active small {
-  color: #fff;
-}
-
-nav.navbar .dropdown-menu .dropdown-item span {
-  color: #777;
-}
-
-nav.navbar .dropdown-menu .dropdown-item i {
-  margin-right: 5px;
-}
 
 nav.navbar .msg-body span,
 nav.navbar .msg-body strong {
