@@ -34,9 +34,9 @@
 // function showRating(ratings)
 
 //Delete entry
-$('#toggle-btn').on('click', function (e) {
+$('#toggle-btn').on('click', function (evt) {
 
-        e.preventDefault();
+        evt.preventDefault();
 
         if ($(window).outerWidth() > 1194) {
             $('nav.side-navbar').toggleClass('shrink');
