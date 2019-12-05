@@ -56,6 +56,46 @@
   </head>
 
 
+<!-- Side Navbar -->
+    <nav class="side-navbar">
+      <div class="side-navbar-wrapper">
+        <!-- Sidebar Header    -->
+        <div class="sidenav-header d-flex align-items-center justify-content-center">
+          <!-- User Info-->
+          <div class="sidenav-header-inner text-center"><img src="static/favicon-96x96.png" alt="person" class="img-fluid rounded-circle">
+            <h2 class="h5">Name</h2><span>Dream Journal</span>
+          </div>
+          <!-- Small Brand information, appears on minimized sidebar-->
+          <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+        </div>
+        <div class="main-menu">
+          <h5 class="sidenav-heading">Main</h5>
+          <ul id="side-main-menu" class="side-menu list-unstyled">                  
+            <li><a href="/index"> <i class="fas fa-home"></i>Home                             </a></li>
+            <li><a href="/journal"> <i class="fas fa-book"></i>Journal                            </a></li>
+            <li><a href="/entryform"> <i class="far fa-edit"></i>New Entry                             </a></li>
+            <li><a href="/charts"> <i class="fa fa-bar-chart"></i>Analysis                             </a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="page">
+      <!-- navbar -->
+      <header class="header">
+        <nav class="navbar fixed-top">
+          <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between fixed-top">
+              <div class="navbar-header">
+                <a id="toggle-btn" href="#" class="menu-btn"><i class="fas fa-bars"> </i></a>
+                <a href="index.html" class="navbar-brand">
+                  <div class="brand-text d-none d-md-inline-block"><strong class="text-primary">Dreambase</strong></div></a></div>
+              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <li class="nav-item"><a href="/logout" class="nav-link logout"> <span class="d-none d-sm-inline-block">Logout</span><i class="fa fa-sign-out"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </header>
       <!-- stats section -->
       <section class="dashboard-counts section-padding">
         <div class="container-fluid">
@@ -251,11 +291,11 @@
 
           <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
           <small> Lucidity: </small>
-          {% for i in range(1,5) %}
+          {% for i in range(1,6) %}
           <small><span class="{% if i <= entry.lucidity %} fas fa-star icon-a{% else %} far fa-star icon-b{% endif %} "></span></small>
           {% endfor %}
           <small> Clarity: </small>
-          {% for i in range(1,5) %}
+          {% for i in range(1,6) %}
           <small><span class="{% if i <= entry.clarity %} fas fa-star icon-c{% else %} far fa-star icon-d{% endif %}"></span></small>
           {% endfor %}
 

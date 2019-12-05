@@ -22,7 +22,27 @@
 /*#sidebar.active {
     margin-left: -250px;
 }*/
-
+.icon-a {
+    color: yellow;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: orange;
+}
+.icon-b {
+    color: orange;
+}
+.icon-c {
+    color: #87CEFA;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #7763f7;
+}
+.icon-d {
+    color: #7763f7;
+}
+.icon-a {
+    color: yellow;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: orange;
+}
 .text-bold {
   font-weight: 700;
 }
