@@ -231,7 +231,7 @@ section header {
 */
 nav.navbar {
   background: #393836;
-  padding: 1.4rem 0;
+  padding: 1.3rem 0;
 
   /* Navbar Brand --------- */
   /*  Dropdowns ------------ */
@@ -335,7 +335,7 @@ nav.navbar a.menu-btn:hover {
 }
 .side-navbar {
   position: fixed;
-  top: 35px;
+  top: 40px;
   left: 0;
   width: 200px;
   height: 100%;
@@ -491,7 +491,7 @@ nav.navbar a.menu-btn:hover {
   vertical-align: middle;
 }
 
-.side-navbar .brand-small {
+.side-navbar .logo {
   display: none;
 }
 
@@ -500,7 +500,7 @@ nav.navbar a.menu-btn:hover {
   text-align: center;
 }
 
-.side-navbar.shrink .brand-small {
+.side-navbar.shrink .logo {
   display: block;
 }
 
