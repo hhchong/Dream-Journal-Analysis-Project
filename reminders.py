@@ -28,10 +28,10 @@ def send_text():
     print("message sent")
     
 
-# schedule.every().day.at("07:42").do(send_text)
-schedule.every(10).seconds.do(send_text)
+schedule.every().day.at("18:38").do(send_text)
+# schedule.every(10).seconds.do(send_text)
 
-   
+ 
 
 
 if __name__ == "__main__":
@@ -40,7 +40,9 @@ if __name__ == "__main__":
     # point that we invoke the DebugToolbarExtension
     connect_to_db(app)
     while True:
-        schedule.run_pending() 
+        schedule.run_pending()
+        time.sleep(1)
+
  
     app.debug = True
     # while True:

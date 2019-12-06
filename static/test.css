@@ -26,7 +26,7 @@
     border-radius: 50rem!important;
 }
 .border {
-    border: 1px solid #dee2e6!important;
+    border: 1.5px solid #dee2e6!important;
 }
 .border-0 {
     border: 0!important;
@@ -135,6 +135,9 @@ i {
 span {
   display: inline-block;
 }
+.button-color {
+    color: white !important;
+}
 
 .mt-30px {
   margin-top: 30px !important;
@@ -142,6 +145,10 @@ span {
 
 .mb-30px {
   margin-bottom: 30px !important;
+}
+.mb-4 {
+    margin-bottom: .25rem !important;
+    margin-right: 3rem;
 }
 
 i[class*='icon-'] {
