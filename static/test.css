@@ -216,6 +216,10 @@ h2 {
 .breadcrumb-holder .breadcrumb .container {
   padding: 0;
 }
+.calendarrow {
+    margin-left: 2.2rem;
+    margin-right: 2.2rem;
+}
 
 .card {
   margin-bottom: 30px;
@@ -261,10 +265,18 @@ section header {
     padding: 0 3rem;
   }
 }
+#calendar {
+    margin: 20px 20px 20px;
+}
 
+.match-height {
+    margin-left: 2.2rem;
+    margin-right: 2.2rem;
+}
 .list-group-item {
   border-right: 0;
   border-left: 0;
+  margin-top: 0rem;
 }
 
 .list-group-item:first-child, .list-group-item:last-child {
@@ -273,6 +285,9 @@ section header {
 
 .overflow-hidden {
   overflow: hidden;
+}
+.card-text {
+    margin-bottom: .3rem;
 }
 
 .tile-link {
