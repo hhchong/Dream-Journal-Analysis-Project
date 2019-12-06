@@ -1,0 +1,41 @@
+{% extends 'base2.html' %}
+{% block content %}
+
+<section class="section-padding2">
+  <div class="container-fluid">
+    <div class="card row">
+      <div class="col-lg-10">
+      
+
+<form action="/reminderform" method="POST">
+
+  <div class="form-group">
+  <label for="day_start">When does your day start?</label>
+    <input class="form-control" type="datetime-local" name="day_start">
+  </div>
+
+  <div class="form-group">
+    <label for="reminder_type">I need a reminder for:</label>
+    <select class="form-control" type = "text" name="reminder_type">
+      <option>Morning Entry Reminder</option>
+      <option>Periodic Reality Checks</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="additional_info">Additional Info</label>
+    <textarea class="form-control" type = "text" name="additional_info" rows="3" placeholder="Write your reality check here"></textarea>
+  </div>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>
+
+</div>
+</div>
+</div>
+</section>
+
+
+{% endblock %}

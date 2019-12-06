@@ -24,32 +24,34 @@ class User(db.Model):
     password = db.Column(db.String(64))
     fname = db.Column(db.String)
     lname = db.Column(db.String)
-    gender = db.Column(db.String(20), nullable=True)
+    phone=db.Column(db.String(50))
     age = db.Column(db.Integer, nullable=True)
 
     entries = db.relationship("Entry", backref="user")
+    reminders= db.relationship("Reminder", backref="user")
 
     def __repr__(self):
         """ Provide helpful representation when printed."""
 
-        return f"<User user_id={self.user_id} email={self.email} username={self.username} password={self.password} fname={self.fname} lname={self.lname} gender={self.gender} age={self.age}>"
+        return f"<User user_id={self.user_id} email={self.email} username={self.username} password={self.password} fname={self.fname} lname={self.lname} phone={self.phone} age={self.age}>"
 
-# class Reminder(db.Model):
-#     """sms reminders"""
-#     __tablename__ = "reminders"
+class Reminder(db.Model):
+    """sms reminders"""
+    __tablename__ = "reminders"
 
-#     reminder_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-#     phone_number = db.Column(db.String(50))
-#     time = db.Column(db.DateTime)
-#     timezone = db.Column(db.String(50))
-#     reminder_type = db.Column(db.String(50))
-#     additional_info = db.Column(db.String(50))
+    reminder_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    # phone = db.Column(db.String(50), db.ForeignKey('users.phone'))
+    day_start = db.Column(db.DateTime)
+    # timezone = db.Column(db.String(50))
+    reminder_type = db.Column(db.String(50))
+    additional_info = db.Column(db.String(100), nullable=True)
 
-#     user_id = db.Column(db.Integer, 
-#                         db.ForeignKey('users.user_id'))
+    user_id = db.Column(db.Integer, 
+                        db.ForeignKey('users.user_id'))
 
-#     def __repr__(self):
-#         return f"<Reminder reminder_id={self.reminder_id} phone_number={self.phone_number} time={self.time} timezone={self.timezone} reminder_type={self.reminder_type} addtional_info={self.additional_info}>"
+
+    def __repr__(self):
+        return f"<Reminder reminder_id={self.reminder_id} day_start = {self.day_start} reminder_type={self.reminder_type} addtional_info={self.additional_info} user_id={self.user_id}>"
 
 
 class Entry(db.Model):

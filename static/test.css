@@ -236,6 +236,9 @@ h2 {
 .section-padding {
   padding-top: 7rem;
 }
+.section-padding2 {
+  padding-top: 13rem;
+}
 
 .section-no-padding-bottom {
   padding-bottom: 0;

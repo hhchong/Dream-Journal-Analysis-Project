@@ -5,7 +5,7 @@ from flask import (Flask, render_template, redirect, request, flash,
 
 # from flask_debugtoolbar import DebugToolbarExtension
 
-from model import User, Entry, Emotion, EntryEmotion, Character, EntryCharacter, Theme, EntryTheme, Setting, EntrySetting, connect_to_db, db
+from model import User, Reminder, Entry, Emotion, EntryEmotion, Character, EntryCharacter, Theme, EntryTheme, Setting, EntrySetting, connect_to_db, db
 
 from peewee import *
 
@@ -14,6 +14,12 @@ from collections import Counter
 from playhouse.sqlite_ext import *
 
 from twilio.rest import Client
+# from flask_sqlalchemy import SQLAlchemy
+
+import os
+import schedule
+import time
+
 
 from datetime import datetime, timedelta
 
@@ -27,7 +33,30 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
-#FIGURE OUT flask login
+# ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
+# AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
+# TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
+
+# #FIGURE OUT flask login
+# def morning_text(user):
+#     return f"Good morning { user }. Remember to journal your dream!"
+# def send_text():
+#     client = Client(ACCOUNT_SID, AUTH_TOKEN)
+  
+#     user= User.query.get(1)
+#     reminder = Reminder.query.filter(Reminder.user_id == 1).first()
+
+#     text=morning_text(user.fname)
+
+#     phone=user.phone
+#     message = client.messages.create(body=text, from_=TWILIO_NUMBER, to=phone)
+#     print(TWILIO_NUMBER)
+#     print(phone)
+#     return('success')
+
+# schedule.every().day.at("17:53").do(send_text)
+  
+
 
 @app.route('/')
 def index():
@@ -126,22 +155,24 @@ def logout():
     flash("you were logged out")
     return redirect('/')
 
-"""index page, shows past week of posts (title, date, ratings), (drafts), and calendar, (eventually other peoples dreams"""
+"""index page, shows past week of posts (title, date, ratings), (drafts), and calendar, and reminders"""
 @app.route('/index')
 def show_index():
     logged_user = session['current_user_id']
     entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
+    reminders = Reminder.query.filter(Reminder.user_id == logged_user).order_by(Reminder.day_start.desc()).all()
 
     return render_template("/index.html",
                             entries=entries,
+                            reminders=reminders,
                             logged=True)
 
 @app.route('/stats')
 def get_stats():
     """get stats for stat cards in index"""
 
-    # user_id = session['current_user_id']
-    user = User.query.get(1)
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
     
     thirty_days_ago = datetime.today() - timedelta(days = 30)
     one_week_ago = datetime.today() - timedelta(days = 7)
@@ -215,7 +246,37 @@ def show_journal():
                             user=user,
                             logged=True)
 
+@app.route("/reminderform", methods=['GET'])
+def show_reminderform():
+    """show reminder form"""
+    day_start = request.args.get("day_start")
+    reminder_type = request.args.get("reminder_type")
+    additional_info = request.args.get("additional_info")
 
+    return render_template("reminderform.html",
+                            day_start=day_start,
+                            reminder_type=reminder_type,
+                            additional_info=additional_info,
+                            logged=True)
+
+@app.route("/reminderform", methods=['POST'])
+def process_reminderform():
+    """process form and save to db"""
+    day_start = request.form["day_start"]
+    reminder_type = request.form["reminder_type"]
+    additional_info = request.form["additional_info"]
+    user_id = session['current_user_id']
+
+    reminder = Reminder(day_start=day_start,
+                        reminder_type=reminder_type,
+                        additional_info=additional_info,
+                        user_id=user_id)
+
+    db.session.add(reminder)
+    db.session.commit()
+
+    flash("successfully saved reminder")
+    return redirect("/index")
 
 @app.route("/entryform", methods=['GET'])
 def show_entryform():
@@ -287,7 +348,7 @@ def process_entryform():
 
         query_emotion = Emotion.query.filter(Emotion.emotion_id == emotion).first()
         
-        print(query_emotion)
+        # print(query_emotion)
             
         emotion = EntryEmotion(entry_id=entry.entry_id, emotion_id=query_emotion.emotion_id)
 
@@ -413,10 +474,10 @@ def edit_entry():
 def show_lucidity():
     """render lucid tag on calendar"""
 
-    # user_id = session['current_user_id']
-    # user = User.query.get(user_id)
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
 
-    user = User.query.get(1)
+    # user = User.query.get(1)
 
     dates = []
     lucidity = []
@@ -445,9 +506,9 @@ def show_lucidity():
 def show_calendar_entries():
     """render entries on calendar"""
 
-    # user_id = session['current_user_id']
-    # user = User.query.get(user_id)
-    user = User.query.get(1)
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+    # user = User.query.get(1)
 
 
     dates = []
@@ -725,15 +786,21 @@ def return_mood():
 
 
 
+
+
 if __name__ == "__main__":
 
     # We have to set debug=True here, since it has to be True at the
     # point that we invoke the DebugToolbarExtension
+    connect_to_db(app)
     app.debug = True
+    # while True:
+    #     schedule.run_pending() 
+    #     time.sleep(1)
     # make sure templates, etc. are not cached in debug mode
     app.jinja_env.auto_reload = app.debug
 
-    connect_to_db(app)
+    # connect_to_db(app)
 
     # Use the DebugToolbar
     # DebugToolbarExtension(app)

@@ -30,7 +30,7 @@ def load_testuser():
 
     test_user = User(email="email@email.com", username = "hhchong", 
                      password = "pass", fname="hannah",lname="chong",
-                     gender="female",age=22)
+                     phone="+16618776775", age=22)
 
     db.session.add(test_user)
 
@@ -57,6 +57,8 @@ def load_testentries():
     db.session.add(test_entry2)
 
     db.session.commit()
+
+
 
 
 def load_emotions():
