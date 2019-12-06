@@ -2,19 +2,41 @@
 
 
 {% block content %}
-
+<div class="container section-padding">
+    <div class="row">
+   
+    
     {% for entry in entries %}
 
-    <h2>{{ entry.title }}</h2>
+    <div class="col-lg-10">
 
-    <p>{{ entry.date.strftime('%m/%d/%Y') }}</p><br>
+    <h1>{{ entry.title }}</h1>
+    <p class="lead" style="text-align:left;">by {{ user.fname }} {{ user.lname }}<span style="float:right;">{{ entry.date.strftime('%m/%d/%Y') }}</span></p>
+    <hr>
+    <p> Lucidity: 
+          {% for i in range(1,6) %}
+          <small><span class="{% if i <= entry.lucidity %} fas fa-star icon-a{% else %} far fa-star icon-b{% endif %} "></span></small>
+          {% endfor %}
+
+          <span class="middle-float">Lucid intent:
+          {% for i in range(1,6) %}
+          <small><span class="{% if i <= entry.lucid_intent %} fas fa-star icon-e{% else %} far fa-star icon-f{% endif %}"></span></small>
+          {% endfor %}</span>
+
+          <span style="float:right;">
+          Clarity:
+          {% for i in range(1,6) %}
+          <small><span class="{% if i <= entry.clarity %} fas fa-star icon-c{% else %} far fa-star icon-d{% endif %}"></span></small>
+          {% endfor %}</span>
+      </p>
+    <hr>
     <p> {{ entry.text_content }}</p><br>
-    <p>Lucidity: {{ entry.lucidity }}</p><br>
-    <p>Lucid intent: {{ entry.lucid_intent }}</p><br>
-    <p>Clarity: {{ entry.clarity }}</p><br>
-
+</div>
 
 {% endfor %}
+
+    </div>
+</div>
 {% endblock %}
 
 

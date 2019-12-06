@@ -22,7 +22,20 @@
 /*#sidebar.active {
     margin-left: -250px;
 }*/
-
+.col-lg-10 {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.middle-float {
+    text-align: center;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
 
 .icon-a {
     color: yellow;
@@ -40,11 +53,23 @@
 .icon-d {
     color: #7763f7;
 }
-.icon-a {
+
+.icon-e {
+    color: pink;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: red;
+}
+
+.icon-f {
+    color: red;
+}
+/*.icon-a {
     color: yellow;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: orange;
 }
+*/
+
 .text-bold {
   font-weight: 700;
 }
@@ -239,6 +264,28 @@ nav.navbar.shrink {
   left: 70px;
   text-align: center;
 }
+.side-navbar.shrink {
+  width: 70px;
+  text-align: center;
+}
+.side-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  width: 200px;
+  text-align: left;
+  background: #393836;
+  color: #fff;
+  z-index: 999;
+  overflow-y: auto;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+
+}
+
+
 nav.navbar .side-navbar-wrapper {
   width: 100%;
   height: 100%;
@@ -337,7 +384,7 @@ nav.navbar a.menu-btn i[class*='icon-'] {
 nav.navbar a.menu-btn:hover {
   background: #379392;
 }
-.side-navbar {
+/*.side-navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -351,8 +398,8 @@ nav.navbar a.menu-btn:hover {
   overflow-y: auto;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
-  /*  Side navbar small ------------------------ */
-}
+
+}*/
 
 .side-navbar .scrolled-wrapper {
   width: 100%;
@@ -499,10 +546,10 @@ nav.navbar a.menu-btn:hover {
   display: none;
 }
 
-.side-navbar.shrink {
+/*.side-navbar.shrink {
   width: 70px;
   text-align: center;
-}
+}*/
 
 .side-navbar.shrink .logo {
   display: block;

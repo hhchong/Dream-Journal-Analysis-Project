@@ -90,9 +90,6 @@ def registration_process():
 
     return redirect("/")
 
-"""FIGURE OUT how to keep someone logged in so it doesnt redirect to homepage but to index"""
-"""login to website"""
-
 @app.route("/login", methods=['GET'])
 def login_form():
 
@@ -207,6 +204,7 @@ def get_post_by_id(post_id):
 def show_journal():
 
     logged_user = session['current_user_id']
+    user = User.query.filter(User.user_id == logged_user).first()
 
 
     entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
@@ -214,6 +212,7 @@ def show_journal():
      
     return render_template("journal.html",
                             entries=entries,
+                            user=user,
                             logged=True)
 
 
