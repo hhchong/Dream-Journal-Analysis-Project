@@ -65,10 +65,23 @@
 
                 <a href="/index" class="navbar-brand">
                   <div class="brand-text d-none d-md-inline-block"><strong class="text-primary">Dreambase</strong></div></a></div></ul></div>
+    
+
+
+                <form class="form-inline" action='/search'>
+                <div class="form-group mb-4 border rounded-pill p-1">
+
+                <input type="text" id="text-search" name="search" class="form-control bg-none border-0" placeholder="Search word">
+              </div>
+              <button type="submit" class="btn btn-default">Search</button>
+              </form>
+
               <ul class="nav navbar-nav float-right">
-              <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <li class="nav-item"><a href="/logout" class="nav-link logout"> <span class="d-none d-sm-inline-block">Logout</span><i class="fa fa-sign-out"></i></a></li>
-              </ul></ul>
+                
+              <!-- <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center"> -->
+                <li class="nav-item"><a href="/logout" class="nav-link logout"> <span class="d-none d-sm-inline">Logout</span><i class="fa fa-sign-out"></i></a></li>
+
+              </ul><!-- </ul> -->
             
           </div>
         </nav>

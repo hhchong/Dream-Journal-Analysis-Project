@@ -22,6 +22,30 @@
 /*#sidebar.active {
     margin-left: -250px;
 }*/
+.rounded-pill {
+    border-radius: 50rem!important;
+}
+.border {
+    border: 1px solid #dee2e6!important;
+}
+.border-0 {
+    border: 0!important;
+}
+.form-control {
+    background: #ffffff00;
+    background-color: #ffffff00;
+}
+.form-control:focus {
+    color: white;
+    background-color: #ffffff00;
+    border-color: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+#test-search {
+    float:right;
+}
 .col-lg-10 {
     border: 1px solid #ccc;
     border-radius: 10px;
