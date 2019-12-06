@@ -288,8 +288,9 @@ section header {
 /*NAVBAR*/
 nav.navbar {
   background: #393836;
-  padding: 1rem 0;
+  padding: .8rem 0;
   left: 200px;
+  transition-duration: .3s;
 }
 nav.navbar.show-sm {
     left: 0;
@@ -297,10 +298,12 @@ nav.navbar.show-sm {
 nav.navbar.shrink {
   left: 70px;
   text-align: center;
+  transition-duration: .3s;
 }
 .side-navbar.shrink {
   width: 70px;
   text-align: center;
+  transition-duration: .3s;
 }
 .side-navbar {
   position: fixed;
