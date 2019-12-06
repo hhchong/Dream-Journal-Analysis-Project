@@ -21,14 +21,17 @@ def send_text():
     user= User.query.get(1)
     reminder = Reminder.query.filter(Reminder.user_id == 1).first()
 
-    text=morning_text(user.fname)
 
+    text=morning_text(user.fname)
     phone=user.phone
     message = client.messages.create(body=text, from_=TWILIO_NUMBER, to=phone)
-    print("+++++++++++++++++++++++++++")
+    print("message sent")
     
 
-schedule.every().day.at("16:43").do(send_text)
+# schedule.every().day.at("07:42").do(send_text)
+schedule.every(10).seconds.do(send_text)
+
+   
 
 
 if __name__ == "__main__":
@@ -36,8 +39,10 @@ if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
     # point that we invoke the DebugToolbarExtension
     connect_to_db(app)
-    # schedule.run_continuously(1)
-    app.debug = True
     while True:
         schedule.run_pending() 
-        time.sleep(1)
+ 
+    app.debug = True
+    # while True:
+    #     schedule.run_pending() 
+    #     time.sleep(1)
