@@ -40,6 +40,7 @@ $('#toggle-btn').on('click', function (evt) {
 
         if ($(window).outerWidth() > 1194) {
             $('nav.side-navbar').toggleClass('shrink');
+            // $('.content-wrapper-before').toggleClass('shrink');
             $('nav.navbar').toggleClass('shrink');
             $('nav.navbar.navbar-holder').toggleClass('shrink');
             $('.page').toggleClass('active');
