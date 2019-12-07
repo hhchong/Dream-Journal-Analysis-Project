@@ -2,18 +2,26 @@
 
 
 {% block content %}
+<div class="content-wrapper-before">
+</div>
 <div class="container section-padding">
-    <div class="row">
+    <div class="container-fluid">
+    <div class="row journalrow">
+
    
  
     {% for entry in entries %}
 
-    <div class="col-lg-10">
-
-    <h1>{{ entry.title }}</h1>
-    <p class="lead" style="text-align:left;">by {{ user.fname }} {{ user.lname }}<span style="float:right;">{{ entry.date.strftime('%m/%d/%Y') }}</span></p>
-    <hr>
-    <p> Lucidity: 
+    <div class="col-md-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+            <div class="media d-flex">
+                <div class="media-body text-left journaltext">
+                <h1 id="journaltitle">{{ entry.title }}</h1>
+                <p class="lead" style="text-align:left;">by {{ user.fname }} {{ user.lname }}<span style="float:right;">{{ entry.date.strftime('%m/%d/%Y') }}</span></p>
+                <hr>
+                <p> Lucidity: 
           {% for i in range(1,6) %}
           <small><span class="{% if i <= entry.lucidity %} fas fa-star icon-a{% else %} far fa-star icon-b{% endif %} "></span></small>
           {% endfor %}
@@ -32,12 +40,20 @@
     <hr>
     <p> {{ entry.text_content }}</p><br>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 
 {% endfor %}
 
 
     </div>
 </div>
+</div>
+
 {% endblock %}
 
 
