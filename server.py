@@ -57,6 +57,15 @@ app.jinja_env.undefined = StrictUndefined
 # schedule.every().day.at("17:53").do(send_text)
   
 
+@app.route('/base2')
+def show_user():
+    """get user's name for sidebar"""
+    user_id = session['current_user_id']
+    user = User.query.get(user_id)
+
+    return render_template("base2.html",
+                            user=user)
+
 
 @app.route('/')
 def index():

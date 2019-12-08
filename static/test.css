@@ -22,6 +22,9 @@
 /*#sidebar.active {
     margin-left: -250px;
 }*/
+.form-control:focus {
+    color: black !important;
+}
 
 .text-primary {
     color: white !important;

@@ -1,6 +1,20 @@
 {% extends 'base2.html' %}
 {% block content %}
 
+<div class="content-wrapper-before">
+</div>
+  <div class="container section-padding">
+    <div class="container-fluid">
+      <div class="row formrow">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">New Entry</h3>
+            </div>
+            <div class="card-block">
+              <div class="card-body">
+                <h5 class="mt-2"> 
+
 
 <form action="/entryform" method="POST">
   <div class="form-group">
@@ -73,7 +87,7 @@
     </select>
   </div>
   <div class="form-group" >
-  <label> Select emotion(s)</label>
+  <label> Select emotion(s)</label><br>
   <label class="checkbox-inline"><input name="emotions" type="checkbox" value="1">angry</label>
   <label class="checkbox-inline"><input name="emotions" type="checkbox" value="2">stressed</label>
   <label class="checkbox-inline"><input name="emotions" type="checkbox" value="3">confused</label>
@@ -85,7 +99,7 @@
   <label class="checkbox-inline"><input name="emotions" type="checkbox" value="9">sad</label>
   </div>
   <div class="form-group" >
-  <label> Select character(s)</label>
+  <label> Select character(s)</label><br>
   <label class="checkbox-inline"><input name="characters" type="checkbox" value="1">friend</label>
   <label class="checkbox-inline"><input name="characters" type="checkbox" value="2">significant other</label>
   <label class="checkbox-inline"><input name="characters" type="checkbox" value="3">animal</label>
@@ -99,7 +113,7 @@
   </div>
 
   <div class="form-group" >
-  <label> Select theme(s)</label>
+  <label> Select theme(s)</label><br>
   <label class="checkbox-inline"><input name="themes" type="checkbox" value="1">fun</label>
   <label class="checkbox-inline"><input name="themes" type="checkbox" value="2">dramatic</label>
   <label class="checkbox-inline"><input name="themes" type="checkbox" value="3">violent</label>
@@ -112,7 +126,7 @@
   <label class="checkbox-inline"><input name="themes" type="checkbox" value="9">loss</label>
   </div>
   <div class="form-group" >
-  <label> Select setting(s)</label>
+  <label> Select setting(s)</label><br>
   <label class="checkbox-inline"><input name="settings" type="checkbox" value="1">outdoor</label>
   <label class="checkbox-inline"><input name="settings" type="checkbox" value="2">indoor</label>
   <label class="checkbox-inline"><input name="settings" type="checkbox" value="3">school</label>
