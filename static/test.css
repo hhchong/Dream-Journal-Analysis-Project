@@ -22,6 +22,9 @@
 /*#sidebar.active {
     margin-left: -250px;
 }*/
+#text-search, .form-control:focus {
+    color: white !important;
+}
 .form-control:focus {
     color: black !important;
 }
@@ -509,13 +512,14 @@ nav.navbar a.menu-btn:hover {
 
 .side-navbar li {
   position: relative;
+
 }
 
 .side-navbar li a {
   position: relative;
   font-size: 1rem;
   font-weight: 400;
-  color: black;
+  color: #443e78;
   text-decoration: none;
   width: 100%;
   padding: 12px;
@@ -530,6 +534,7 @@ nav.navbar a.menu-btn:hover {
 .side-navbar li a[data-toggle="collapse"]::before {
   content: '\f104';
   display: inline-block;
+
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   font-family: 'FontAwesome';
