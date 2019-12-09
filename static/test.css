@@ -513,16 +513,16 @@ nav.navbar a.menu-btn:hover {
 
 .side-navbar li a {
   position: relative;
-  font-size: .9rem;
-  font-weight: 300;
-  color: blue;
+  font-size: 1rem;
+  font-weight: 400;
+  color: black;
   text-decoration: none;
   width: 100%;
   padding: 12px;
 }
 
 .side-navbar li a:focus, .side-navbar li a:hover, .side-navbar li a[aria-expanded="true"] {
-  background: #379392;
+  background:   #B0E0E6;
   color: #fff;
   text-decoration: none;
 }

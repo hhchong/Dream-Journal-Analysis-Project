@@ -504,6 +504,8 @@ def show_lucidity():
         lucid['title'] = lucidity[i]
         lucid['start'] = dates[i]
         lucid['sort'] = '1'
+        lucid['color'] = '#905aad'
+        lucid['textColor'] = 'white'
         
 
         lucid_data.append(lucid.copy())
