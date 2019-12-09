@@ -28,9 +28,6 @@
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
 
-        // var calendar = new FullCalendar.Calendar(calendarEl, {
-        //   plugins: [ 'dayGrid' ]
-        // });
         var calendar = new FullCalendar.Calendar(calendarEl, {
           aspectRatio: 1.5,
           fixedWeekCount: false,
@@ -122,124 +119,32 @@
   </div>
 </section>
 
-
-
-
- <!-- <div class="wrapper">
-
-    <nav id="sidebar">
-      <div class="sidebar-header">
-            <h3>DreamBase</h3>
-        </div>
-
-        <ul class="list-unstyled components">
-            <p>Welcome</p>
-        
-          <li>
-            <a href="/index">Home</a>
-          </li>
-          <li>
-            <a href="/journal">Journal</a>
-          </li>
-          <li>
-            <a href="/entryform">Create Entry</a>
-          </li>
-          <li>
-            <a href="/charts">Analysis</a>
-          </li>
-
-        </ul>
-    </nav> 
- </div>  
-<div id="content">
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <div class="container-fluid">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info">
-                    <i class="fas fa-align-left"></i>
-                    <span>Toggle Sidebar</span>
-                </button>
-            </div>
-        </nav>
-    </div>
-
-
- -->
-
-<!-- <div class="content-wrapper">
-<div class="content-body">
-<div class="row statsrow">
-  <div class="col-xl-4 col-lg-6 col-12">
-     <div class="card cardStat">
-      <div class="card-content">
-        <div class="card-body">
-          <div class="media d-flex">
-            <div class="media-body text-left statstext">
-              <h3 id="total" ></h3>
-              <span>Total Entries</span>
-            </div>
-              <div class="align-self-center">
-              <img src="static/total.png" width="70" height="70">
-              </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-4 col-lg-6 col-12">
-     <div class="card cardStat">
-      <div class="card-content">
-        <div class="card-body">
-          <div class="media d-flex">
-            <div class="media-body text-left statstext">
-              <h3 id="hours" ></h3>
-              <span>Average Hours Slept Past Week</span>
-            </div>
-            <div class="align-self-center">
-           
-              <img src="static/cloud.png" width="70" height="70">
-                  </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-xl-4 col-lg-6 col-12">
-     <div class="card cardStat">
-      <div class="card-content">
-        <div class="card-body">
-          <div class="media d-flex">
-            <div class="media-body text-left statstext">
-              <h3 id="lucid" ></h3>
-              <span>Lucid Occurences This Month</span>
-            </div>
-            <div class="align-self-center">
-           
-              <img src="static/peace-of-mind.png" width="70" height="70">
-                  </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-</div>
-</div> -->
+<!-- preview section -->
 <section id="previews">
+  <div class="container-fluid title">
+  <div class="row">
+    <div class="col-6 mt-3 mb-1">
+      <div class="titles">
+      <h4 class="text-uppercase">Recent Entries</h4>
+      <p> Entries for the past week </p></div>
+    </div>
+    <div class="col-6 mt-3 mb-1">
+      <div class="titles">
+      <h4 class="text-uppercase">Reminders</h4>
+      <p> Saved SMS reminders </p></div>
+    </div>
+  </div>
+</div>
 <div class="row match-height">
   <!-- row for reminders and entries -->
   <div class="col-xl-6 col-md-6 col-sm-12">
     <div class="card">
       <div class="card-content">
-        <div class="card-body">
-          <ul id="ulist" class="list-group list-group-flush">
+        <div class="card-body prev">
+          <ul id="ulist" class="list-group list-group-flush prev scroll">
           {% for entry in entries %}
           <li class="list-group-item">
             <a id="entry-{{ entry.entry_id}}" href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">
-              
-          
           <h4 class="card-title"> {{ entry.title }} </a>
           <div class="float-right">
               <button
@@ -270,6 +175,14 @@
       </div>
     </div>
   </div>
+   <!-- <div class="container-fluid title">
+  <div class="row">
+    <div class="col-12 mt-3 mb-1">
+      <h4 class="text-uppercase">Reminders</h4>
+      <p> Saved SMS reminders </p>
+    </div>
+  </div> -->
+<!-- </div> -->
 
    <div class="col-xl-6 col-md-12">
     <div class="card">
@@ -295,52 +208,6 @@
 </div>
 </section>
 
-
-
-
-
-<!-- </div> -->
-<!--     <ul id="ulist" class="list-group list-group-flush">
-      {% for entry in entries %} -->
-       <!--  <li class="list-group-item">
-
-          <div class="d-flex w-100 justify-content-between align-items-center">
-            <h5 class="mb-1 post-title">
-              <a id="entry-{{ entry.entry_id}}" href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">
-                {{ entry.title }}
-              </a>
-            </h5>
- -->
-           <!--  <div class="pull-right">
-              <button
-                class="btn edit-entry"
-                data-toggle="modal"
-                data-target="#modal-{{ entry.entry_id}}"
-                data-entry-id="{{ entry.entry_id }}"
-              >
-                <span class="fas fa-pencil-alt"></span>
-              </button>
-              <button class="btn delete-entry" data-entry-id="{{ entry.entry_id }}">
-                <span class="far fa-trash-alt"></span>
-              </button>
-            </div>
-          </div>
- -->
-         <!--  <small>{{ entry.date.strftime('%m/%d/%Y') }}</small>
-          <small> Lucidity: </small>
-          {% for i in range(1,6) %}
-          <small><span class="{% if i <= entry.lucidity %} fas fa-star icon-a{% else %} far fa-star icon-b{% endif %} "></span></small>
-          {% endfor %}
-          <small> Clarity: </small>
-          {% for i in range(1,6) %}
-          <small><span class="{% if i <= entry.clarity %} fas fa-star icon-c{% else %} far fa-star icon-d{% endif %}"></span></small>
-          {% endfor %}
-
-        </li>
-      {% endfor %} -->
-    <!-- </ul>              
-  </div> -->
-  <!-- <div id='calendar'></div> -->
 <section id="calendar-view">
   <div class="row calendarrow">
   <div class="card calendarcard">

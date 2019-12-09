@@ -168,7 +168,8 @@ def logout():
 @app.route('/index')
 def show_index():
     logged_user = session['current_user_id']
-    entries = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
+    entrie = Entry.query.filter(Entry.user_id == logged_user).order_by(Entry.date.desc()).all()
+    entries=entrie[:7]
     reminders = Reminder.query.filter(Reminder.user_id == logged_user).order_by(Reminder.day_start.desc()).all()
 
     return render_template("/index.html",
@@ -238,11 +239,9 @@ def get_post_by_id(post_id):
     return jsonify(data)
 
 
-
-"""journal page w all entries (with every detail).. profile style, eventually infinite scroll"""
 @app.route("/journal", methods=['GET'])
 def show_journal():
-
+    """show all journal entries, complete view"""
     logged_user = session['current_user_id']
     user = User.query.filter(User.user_id == logged_user).first()
 
@@ -289,6 +288,7 @@ def process_reminderform():
 
 @app.route("/entryform", methods=['GET'])
 def show_entryform():
+    """render entry form html"""
 
     if 'current_user_id' not in session:
         return redirect("/login")
@@ -325,6 +325,7 @@ def show_entryform():
 
 @app.route("/entryform", methods=['POST'])
 def process_entryform():
+    """send data from entry to db"""
 
     date = request.form["date"]
     text_content = request.form["text_content"]
@@ -356,8 +357,6 @@ def process_entryform():
     for emotion in emotions:
 
         query_emotion = Emotion.query.filter(Emotion.emotion_id == emotion).first()
-        
-        # print(query_emotion)
             
         emotion = EntryEmotion(entry_id=entry.entry_id, emotion_id=query_emotion.emotion_id)
 
@@ -420,7 +419,6 @@ def search_term():
 
     user_id = session['current_user_id']
     user = User.query.filter(User.user_id == user_id).first()
-    # user = User.query.get(user_id)
 
     phrase = request.args.get('search')
   
@@ -489,8 +487,6 @@ def show_lucidity():
     user_id = session['current_user_id']
     user = User.query.get(user_id)
 
-    # user = User.query.get(1)
-
     dates = []
     lucidity = []
     lucid = {}
@@ -522,13 +518,10 @@ def show_calendar_entries():
 
     user_id = session['current_user_id']
     user = User.query.get(user_id)
-    # user = User.query.get(1)
-
 
     dates = []
     titles = []
     links = []
-    # lucids = []
     event = {}
     events = []
 
@@ -540,17 +533,12 @@ def show_calendar_entries():
         link = "/entry_details/" + str(entry.entry_id) 
         links.append(link)
 
-        # if int(entry.lucidity) >= 3:
-        #     lucids.append('')
-
-
-        
     for i in range(0, len(dates)):
          event['title'] = titles[i]
          event['start'] = dates[i]
          event['url'] = links[i]
          event['sort'] = '-1'
-         #if 
+
          events.append(event.copy())
     
     return jsonify(events)
@@ -580,22 +568,10 @@ def return_emotions():
             #increment value by one each time an emotion appears in a dream entry
             emotions_dict[emotion.emotion] = emotions_dict.get(emotion.emotion, 0) + 1
 
-
-    # for emotion in emotions:
-    #     emotions_dict[emotion] = emotions_dict.get(emotion, 0) + 1
-
     chart_emotion_dict = {'labels' : list(emotions_dict.keys()), 
                         'datasets': [{
                         'data': list(emotions_dict.values()), 
-                        'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273']}]}
-    # for emotion in emotions_dict.keys():
-    #     emotion_str = str(emotion)
-    #     emotion_name = emotion_str[30:-1]
-    #     chart_emotion_dict['labels'].append(emotion_name)
-
-    # val = list(emotions_dict.values())
-
-    # chart_emotion_dict['datasets'][0]['data'].append(val)
+                        'backgroundColor': ["#a6cee3", "#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c", "#fdbf6f", '#ff7f00', '#cab2d6']}]}
 
     return jsonify(chart_emotion_dict)
 
@@ -616,8 +592,8 @@ def return_characters():
     chart_character_dict = {'labels' : list(characters_dict.keys()), 
                         'datasets': [{
                         'data': list(characters_dict.values()), 
-                        'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273', '#98afd4']}]}
-
+                        'backgroundColor': ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd"]}]}
+                        
     return jsonify(chart_character_dict)
 
 
@@ -639,7 +615,7 @@ def return_themes():
     chart_theme_dict = {'labels' : list(themes_dict.keys()), 
                         'datasets': [{
                         'data': list(themes_dict.values()), 
-                        'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273','#98afd4']}]}
+                        'backgroundColor': ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd"]}]}
 
     return jsonify(chart_theme_dict)
 
@@ -660,7 +636,7 @@ def return_settings():
     chart_setting_dict = {'labels' : list(settings_dict.keys()), 
                         'datasets': [{
                         'data': list(settings_dict.values()), 
-                        'backgroundColor': ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850","#7180AC", "#2B4570", '#A8D0DB', '#E49273']}]}
+                        'backgroundColor': ["#a6cee3", "#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c", "#fdbf6f", '#ff7f00', '#cab2d6']}]}
 
     return jsonify(chart_setting_dict)
 
@@ -686,20 +662,19 @@ def return_lucidity():
                             'datasets' : [{
                             'data' : lucidity_lst,
                             'label' : "Lucidity",
-                            'borderColor': "#41C3C0",
-                            'fill': True,
-                            'backgroundColor': "rgba(145, 221, 220, .5)"
+                            'borderColor': "#a6cee3",
+                            'fill': False
                             },
                             {'data' : lucid_intent_lst,
                             'label' : "Lucid Intent",
-                            'borderColor': "##8e5ea2",
-                            'fill': True
+                            'borderColor': "#1f78b4",
+                            'fill': False
                             },
                             {
                             'data' : clarity_lst,
                             'label' : "Clarity",
-                            'borderColor': "#3cba9f",
-                            'fill': True
+                            'borderColor': "#b2df8a",
+                            'fill': False
                             }
                             ]}
 
@@ -723,9 +698,9 @@ def return_sleepquality():
                             'datasets' : [{
                             'data' : hours_lst,
                             'label' : "Hours Slept",
-                            'borderColor': "#41C3C0",
+                            'borderColor': '#8da0cb',
                             'fill': True,
-                            'backgroundColor': "rgba(145, 221, 220, .5)"
+                            'backgroundColor': "rgba(140, 158, 202, 0.5)"
                             }
                             ]}
 
@@ -769,7 +744,7 @@ def return_mood():
                             'data' : mood_lst,
                             'label' : 'Mood',
                             'fill' : False,
-                            'borderColor': "#41C3C0",
+                            'borderColor': "#6042c2",
                             'yAxisID' : 'left-axis'
                         },
                             {
@@ -779,7 +754,7 @@ def return_mood():
                             'fill' : True,
                             # 'type': "bar",
                             'borderColor': "#3cba9f",
-                            'backgroundColor' : "#3cba9f",
+                            'backgroundColor' : "#dfa9eb",
                             'yAxisID' : 'right-axis'
 
                         },
@@ -788,7 +763,7 @@ def return_mood():
                             'label' : 'negative',
                             'fill' : True,
                             'borderColor': "#e8c3b9",
-                            'backgroundColor' : "#e8c3b9",
+                            'backgroundColor' : "#a9cfeb",
                             'yAxisID' : 'right-axis'
                             }
                         ]}

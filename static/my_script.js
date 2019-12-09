@@ -1,39 +1,4 @@
-//populate calendar
 
-
-// $('#calendar').fullCalendar({
-
-//   event: '/calendar.json',
-
-//   eventClick: function(event) {
-//     if (event.url) {
-//       //if you want to open url in the same tab
-//       location.href = "/index";
-//       //if you want to open url in another window / tab, use the commented code below
-//       //window.open(event.url);
-//       return false;
-//     }
-//   }
-// });
-
-// var calendar = new Calendar(calendarEl, {
-//     eventSources: '/calendar.json'
-
-//     eventClick: function(event) {
-//     if (event.url) {
-//       //if you want to open url in the same tab
-//       location.href = "/index";
-//       //if you want to open url in another window / tab, use the commented code below
-//       //window.open(event.url);
-//       return false;
-//     }
-//   }
-// });
-
-//stars
-// function showRating(ratings)
-
-//Delete entry
 $('#toggle-btn').on('click', function (evt) {
 
         evt.preventDefault();
@@ -49,13 +14,6 @@ $('#toggle-btn').on('click', function (evt) {
             $('.page').toggleClass('active-sm');
         }
     });
-// $(document).ready(function () {
-
-//     $('#sidebarCollapse').on('click', function () {
-//         $('#sidebar').toggleClass('active');
-//     });
-
-// });
 
 
 
@@ -76,14 +34,6 @@ $('.delete-entry').click(function(){
 });
 
 
-//upon click, send new material to db, close window, show updated entry
-//TEST THIS FOR DELETING ENTRIES AFTER YOU FINISH THE OTHER CARDS
-// $('.delete-entry').on('click', (evt) => {
-//   evt.preventDefault();
-//   $.get('/stats', get_stats => {
-//     $('#total').html("<h3>" + get_stats.total_entries + "</h3>");
-//   });
-// });
 $.get('/stats', get_stats => {
     $('#total').html("<h3>" + get_stats.total_entries + "</h3>");
     $('#hours').html("<h3>" + get_stats.average_sleep + "</h3>");
@@ -214,6 +164,8 @@ var moodOptions = {
     let ctx_lucidity_chart = $("#lucidityChart").get(0).getContext("2d");
     let ctx_quality_chart = $("#qualityChart").get(0).getContext("2d");
     let ctx_mood_chart = $("#moodChart").get(0).getContext("2d");
+    
+  
 
 //Data and chart creation
 

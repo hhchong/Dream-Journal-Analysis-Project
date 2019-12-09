@@ -7,6 +7,7 @@
     <div class="container-fluid">
       <div class="row formrow">
         <div class="col-md-12">
+          
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">New Reminder</h3>
@@ -14,37 +15,27 @@
             <div class="card-block">
               <div class="card-body">
                 <h5 class="mt-2"> 
-<!-- <section class="section-padding2">
-  <div class="container-fluid">
-    <div class="card row">
-      <div class="col-lg-10"> -->
-        <form action="/reminderform" method="POST">
-  <div class="form-group">
-    <label for="day_start">When does your day start?</label>
-    <input type="datetime-local" class="form-control" name="day_start">
-  </div>
-  <div class="form-group">
-  <label for="reminder_type">I need a reminder for:</label>
-    <select class="form-control" type="text" name="reminder_type">
-      <option>Morning Entry Reminder</option>
-      <option>Periodic Reality Checks</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="additional_info">Additional Info</label>
-    <textarea class="form-control" type = "text" name="additional_info" rows="3" placeholder="Specific reality Check? Other morning reminders? Write them here."></textarea>
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-
-
-  </form>
-</div>
-
-</div>
-</div>
-</div>
-
-
+                <form action="/reminderform" method="POST">
+                  <div class="form-group">
+                    <label for="day_start">When does your day start?</label>
+                    <input type="datetime-local" class="form-control" name="day_start">
+                  </div>
+                  <div class="form-group">
+                    <label for="reminder_type">I need a reminder for:</label>
+                    <select class="form-control" type="text" name="reminder_type">
+                      <option>Morning Entry Reminder</option>
+                      <option>Periodic Reality Checks</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="additional_info">Additional Info</label>
+                    <textarea class="form-control" type = "text" name="additional_info" rows="3" placeholder="Specific reality Check? Other morning reminders? Write them here."></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
 {% endblock %}
