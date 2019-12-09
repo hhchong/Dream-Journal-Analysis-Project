@@ -1,7 +1,116 @@
 {% extends 'base2.html' %}
 {% block content %}
 <head>
-<div class="chart">
+
+<div class="content-wrapper-before">
+</div>
+<section class="dashboard-counts section-padding">
+  <div class="container-fluid">
+    <div class="row">
+
+<!-- <div class="content-body">
+  <div class="container-fluid">
+    <section id="donut_charts">
+      <div class="row"> -->
+
+
+        <div class="col-sm-6 col-sm-6">
+          <div class="card">
+
+            <div class="card-body">
+              <div class="chart">
+              <div class="height-400">
+                <canvas id="emotionsChart" width="838" height="800" style="display: block; height: 400px; width: 419px;"></canvas>
+                <div id="emotionLegend" class="chart-legend"></div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-sm-6 col-sm-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="chart">
+              <div class="height-400">
+                <canvas id="charactersChart" width="838" height="800" style="display: block; height: 400px; width: 419px;"></canvas>
+                <div id="emotionLegend" class="chart-legend"></div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+        <div class="row">
+
+        <div class="col-sm-6 col-sm-16">
+          <div class="card">
+
+            <div class="card-body">
+              <div class="chart">
+              <div class="height-400">
+                 <canvas id="themesChart" width="838" height="800" style="display: block; height: 400px; width: 419px;"></canvas>
+                  <div id="emotionLegend" class="chart-legend"></div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-sm-16">
+          <div class="card">
+
+            <div class="card-body">
+              <div class="chart">
+              <div class="height-400">
+                 <canvas id="settingsChart" width="838" height="800" style="display: block; height: 400px; width: 419px;"></canvas>
+                  <div id="emotionLegend" class="chart-legend"></div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="lucidityChart"></canvas>
+                <div id="emotionLegend" class="chart-legend"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="qualityChart"></canvas>
+                <div id="emotionLegend" class="chart-legend"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-body">
+              <div class="chart">
+                <canvas id="moodChart"></canvas>
+                <div id="emotionLegend" class="chart-legend"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>   
+
+  </div>
+</section>
+</head>
+
+
+
+<head>
+<!-- <div class="chart">
     <canvas id="emotionsChart"></canvas>
     <div id="emotionLegend" class="chart-legend"></div>
   </div>
@@ -29,7 +138,7 @@
     <canvas id="moodChart"></canvas>
     <div id="emotionLegend" class="chart-legend"></div>
   </div>
-</head>
+</head> -->
 
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
  <script src="/static/my_script.js"></script>
