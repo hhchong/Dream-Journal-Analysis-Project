@@ -403,11 +403,13 @@ def process_entryform():
 @app.route('/entry_details/<entry_id>', methods=['GET'])
 def show_entry_details(entry_id):
     """show individual entry"""
-
+    user_id = session['current_user_id']
+    user = User.query.filter(User.user_id == user_id).first()
    
     entry = Entry.query.filter(Entry.entry_id == entry_id).first()
 
     return render_template("entry_details.html",
+                            user=user,
                             entry_id=entry_id,
                             entry=entry,
                             logged=True)
@@ -417,6 +419,7 @@ def search_term():
     """search through text_content with phrase"""
 
     user_id = session['current_user_id']
+    user = User.query.filter(User.user_id == user_id).first()
     # user = User.query.get(user_id)
 
     phrase = request.args.get('search')
@@ -426,7 +429,7 @@ def search_term():
     else:
          entries = Entry.query.filter(Entry.user_id == user_id).order_by(Entry.date.desc()).all()
 
-    return render_template('search.html', entries=entries, logged=True)
+    return render_template('search.html', entries=entries, user=user, logged=True)
 
 @app.route('/delete_entry', methods=['POST'])
 def delete_entry():

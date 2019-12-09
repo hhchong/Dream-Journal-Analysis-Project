@@ -1,18 +1,59 @@
 {% extends 'base2.html' %}
 {% block content %}
 
-
+<div class="content-wrapper-before">
+</div>
+<div class="container section-padding">
+    <div class="container-fluid">
+    <div class="row journalrow">
 
     {% for entry in entries %}
 
+    <div class="col-md-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+            <div class="media d-flex">
+                <div class="media-body text-left journaltext">
+                    <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">
+                <h1 id="journaltitle">{{ entry.title }}</h1>   </a>
+                <p class="lead" style="text-align:left;">by {{ user.fname }} {{ user.lname }}<span style="float:right;">{{ entry.date.strftime('%m/%d/%Y') }}</span></p>
+                <hr>
+                <p> Lucidity: 
+          {% for i in range(1,6) %}
+          <small><span class="{% if i <= entry.lucidity %} fas fa-star icon-a{% else %} far fa-star icon-b{% endif %} "></span></small>
+          {% endfor %}
+
+          <span class="middle-float">Lucid intent:
+          {% for i in range(1,6) %}
+          <small><span class="{% if i <= entry.lucid_intent %} fas fa-star icon-e{% else %} far fa-star icon-f{% endif %}"></span></small>
+          {% endfor %}</span>
+
+          <span style="float:right;">
+          Clarity:
+          {% for i in range(1,6) %}
+          <small><span class="{% if i <= entry.clarity %} fas fa-star icon-c{% else %} far fa-star icon-d{% endif %}"></span></small>
+          {% endfor %}</span>
+      </p>
+
+      </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 
     <h2>
         <a href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">{{ entry.title }}
         </a>
     </h2>
 
-    <p>{{ entry.date.strftime('%m/%d/%Y') }}</p><br>
+    <p>{{ entry.date.strftime('%m/%d/%Y') }}</p><br> -->
 
     {% endfor %}
+        </div>
+</div>
+</div>
 
 
 {% endblock %}
