@@ -145,7 +145,7 @@
           {% for entry in entries %}
           <li class="list-group-item">
             <a id="entry-{{ entry.entry_id}}" href="{{ url_for('show_entry_details', entry_id=entry.entry_id) }}">
-          <h4 class="card-title"> {{ entry.title }} </a>
+          <h4 class="card-title" > {{ entry.title }} </a>
           <div class="float-right">
               <button
                 class="btn edit-entry"

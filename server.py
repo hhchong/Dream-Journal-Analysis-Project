@@ -198,6 +198,7 @@ def get_stats():
     total = 0
     prev_total = 0
     lucid_percent = 0
+    average_sleep = 0
 
     for entry in user.entries:
         total_entries += 1
@@ -208,10 +209,12 @@ def get_stats():
     for sleep in week_sleep:
         total += sleep.hours_slept
         average_sleep = total/len(week_sleep)
+        average_sleep = round(average_sleep , 2)
     
     for s in prev_week_sleep:
         prev_total += s.hours_slept
         prev_average_sleep = prev_total/len(prev_week_sleep)
+        # prev_average_sleep = round(prev_average_sleep, 2)
 
     if average_sleep > prev_average_sleep:
         percent = str((average_sleep - prev_average_sleep)*100)
