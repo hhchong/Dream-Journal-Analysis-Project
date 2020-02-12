@@ -12,15 +12,16 @@ DreamBase was created by Hannah C. Learn more about the developer on [LinkedIn] 
 
 **Tech Stack:**
 
--Python
--Flask
--SQLAlchemy
--Jinja
--HTML
--CSS
--Javascript
--jQuery
--Bootstrap
--Twilio REST API
--FullCalendar
+- Python
+- Flask
+- SQLAlchemy
+- Jinja
+- HTML
+- CSS
+- Javascript
+- jQuery
+- Bootstrap
+- Twilio REST API
+- FullCalendar
 
+## Features
