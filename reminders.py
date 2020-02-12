@@ -19,15 +19,14 @@ def send_text():
     client = Client(ACCOUNT_SID, AUTH_TOKEN)
   
     user= User.query.get(1)
-    reminder = Reminder.query.filter(Reminder.user_id == 1, Reminder.reminder_type == "Periodic Reality Checks").first()
+    reminder = Reminder.query.filter(Reminder.user_id == 1, Reminder.reminder_type == "Morning Entry Reminder").first()
     time = str(reminder.day_start)[11:16]
-
 
     text=morning_text(user.fname)
     phone=user.phone
     message = client.messages.create(body=text, from_=TWILIO_NUMBER, to=phone)
     print("message sent")
-    return time 
+ 
 
     
 

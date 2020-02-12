@@ -33,29 +33,7 @@ app.secret_key = "ABC"
 
 app.jinja_env.undefined = StrictUndefined
 
-# ACCOUNT_SID = os.environ['TWILIO_ACCOUNT_SID']
-# AUTH_TOKEN = os.environ['TWILIO_AUTH_TOKEN']
-# TWILIO_NUMBER = os.environ['TWILIO_NUMBER']
 
-# #FIGURE OUT flask login
-# def morning_text(user):
-#     return f"Good morning { user }. Remember to journal your dream!"
-# def send_text():
-#     client = Client(ACCOUNT_SID, AUTH_TOKEN)
-  
-#     user= User.query.get(1)
-#     reminder = Reminder.query.filter(Reminder.user_id == 1).first()
-
-#     text=morning_text(user.fname)
-
-#     phone=user.phone
-#     message = client.messages.create(body=text, from_=TWILIO_NUMBER, to=phone)
-#     print(TWILIO_NUMBER)
-#     print(phone)
-#     return('success')
-
-# schedule.every().day.at("17:53").do(send_text)
-  
 
 @app.route('/base2')
 def show_user():

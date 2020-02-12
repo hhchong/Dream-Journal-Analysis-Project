@@ -93,16 +93,6 @@ class Entry(db.Model):
                                secondary="entries_settings",
                                backref="entries")
 
-    # def delete(self):
-    #     for emotion in self.emotions:
-    #         db.session.delete(EntryEmotion(self.entry_id))
-    #     for character in self.characters:
-    #         db.session.delete(EntryCharacter(self.entry_id))
-    #     for theme in self.themes:
-    #         db.session.delete(EntryTheme(self.entry_id))
-    #     for setting in self.settings:
-    #         db.session.delete(EntrySetting(self.entry_id))
-
     def __repr__(self):
 
         return f"<Entry entry_id={self.entry_id} user_id={self.user_id} date={self.date} text_content={self.text_content} title={self.title} hours_slept={self.hours_slept} mood_awake={self.mood_awake} clarity={self.clarity} lucidity={self.lucidity} lucid_intent={self.lucid_intent}>"
@@ -115,12 +105,6 @@ class Emotion(db.Model):
 
     emotion_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     emotion = db.Column(db.String(64))
-
-   
-
-    # @classmethod
-    # def get_emotion(cls, emotion_name):
-    #     return cls.query.filter_by(emotion=emotion_name).first()
 
     def __repr__(self):
         """Provide helpful representation when printed."""
