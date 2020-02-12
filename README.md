@@ -6,4 +6,21 @@
 
 ## About the Developer
 
-DreamBase was created by Hannah Chong. Learn more about the developer on [LinkedIn] (https://www.linkedin.com/in/hhchong97).
+DreamBase was created by Hannah C. Learn more about the developer on [LinkedIn] (https://www.linkedin.com/in/hhchong97).
+
+## Technologies
+
+**Tech Stack:**
+
+-Python
+-Flask
+-SQLAlchemy
+-Jinja
+-HTML
+-CSS
+-Javascript
+-jQuery
+-Bootstrap
+-Twilio REST API
+-FullCalendar
+
