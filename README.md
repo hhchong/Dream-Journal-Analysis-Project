@@ -27,6 +27,7 @@ DreamBase was created by Hannah C. Learn more about the developer on [LinkedIn] 
 ## Features
 
 Create and save dream entries!
+
 ![new entry](/static/_readme-img/new_entry.gif)
 <br/><br/><br/>
 
