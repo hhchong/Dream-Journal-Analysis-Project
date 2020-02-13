@@ -28,4 +28,4 @@ DreamBase was created by Hannah C. Learn more about the developer on [LinkedIn] 
 
 Add a reminder to fill out your journal or practice reality checks!
 
-![SMS Reminder](/dreams-project/static/_readme-img/dreambade_twilio.gif)
+![SMS Reminder](/dreams-project/static/_readme-img/dreambase_twilio.gif)
