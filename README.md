@@ -26,6 +26,12 @@ DreamBase was created by Hannah C. Learn more about the developer on [LinkedIn] 
 
 ## Features
 
+Create and save dream entries!
+![new entry](/static/_readme-img/new_entry.gif)
+<br/><br/><br/>
+
 Add a reminder to fill out your journal or practice reality checks!
 
 ![SMS Reminder](/static/_readme-img/dreambase_twilio.gif)
+<br/><br/><br/>
+
