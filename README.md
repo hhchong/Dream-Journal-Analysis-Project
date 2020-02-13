@@ -25,3 +25,7 @@ DreamBase was created by Hannah C. Learn more about the developer on [LinkedIn] 
 - FullCalendar
 
 ## Features
+
+Add a reminder to fill out your journal or practice reality checks!
+
+![SMS Reminder](/dreams-project/static/_readme-img/dreambade_twilio.gif)
