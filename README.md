@@ -36,7 +36,6 @@ You can view your journal either in a scrollable full view, or as a preview in y
 ![scroll](/static/_readme-img/main_scroll.gif)
 <br/><br/><br/>
 
-
 Add a reminder to fill out your journal or practice reality checks!
 
 ![SMS Reminder](/static/_readme-img/dreambase_twilio.gif)
