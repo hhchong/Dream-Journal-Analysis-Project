@@ -26,14 +26,23 @@ DreamBase was created by Hannah C. Learn more about the developer on [LinkedIn] 
 
 ## Features
 
-<!-- 
-Create and save dream entries!
 
-![new entry](/static/_readme-img/new_entry.gif)
+
+Homepage with journal previews, sleep statistics, and an interactive calendar.
+
+![new entry](/static/_readme-img/main_scrolled.gif)
 <br/><br/><br/>
- -->
+ 
 You can view your journal either in a scrollable full view, or as a preview in your homepage.
 ![scroll](/static/_readme-img/main_scroll.gif)
+<br/><br/><br/>
+
+Create a new dream entry.
+![new entry](/static/_readme-img/new_entry.gif)
+<br/><br/><br/>
+
+Edit or delete a dream entry.
+![editdelete entry](/static/_readme-img/edit_delete.gif)
 <br/><br/><br/>
 
 Add a reminder to fill out your journal or practice reality checks!
@@ -41,6 +50,17 @@ Add a reminder to fill out your journal or practice reality checks!
 ![SMS Reminder](/static/_readme-img/new_reminder.gif)
 <br/><br/><br/>
 
-Can't remember a dream? Search for an entry using keywords!
-![search](/static/_readme-img/search.gif)
+Can't remember a dream? Search for an entry using keywords.
+![search](/static/_readme-img/full_search.gif)
+<br/><br/><br/>
+
+View your updated dream analysis charts!
+![charts](/static/_readme-img/charts.gif)
+<br/><br/>
+
+
+
+
+
+
 
